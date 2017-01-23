@@ -23,7 +23,8 @@
 #import "JSQMessagesCollectionViewFlowLayout.h"
 #import "JSQMessagesInputToolbar.h"
 
-
+#import <AVFoundation/AVFoundation.h>
+#import <AVKit/AVKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,9 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JSQMessagesViewController : UIViewController <JSQMessagesCollectionViewDataSource,
 JSQMessagesCollectionViewDelegateFlowLayout,
 UITextViewDelegate>
-
-
-
 
 
 /**
@@ -315,6 +313,8 @@ UITextViewDelegate>
  @param notification The posted notification.
  */
 - (void)didReceiveMenuWillHideNotification:(NSNotification *)notification;
+
+- (void)jsq_playvideo:(NSURL *)fileURL;
 
 @end
 

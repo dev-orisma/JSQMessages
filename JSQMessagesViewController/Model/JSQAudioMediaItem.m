@@ -52,7 +52,7 @@
     self = [super init];
     if (self) {
         _cachedMediaView = nil;
-         _cachedMediaPreview = nil;
+        _cachedMediaPreview = nil;
         
         _audioData = [audioData copy];
         _audioViewAttributes = audioViewAttributes;

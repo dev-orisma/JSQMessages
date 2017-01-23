@@ -1054,4 +1054,18 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
                      completion:nil];
 }
 
+
+- (void)jsq_playvideo:(NSURL *)fileURL
+{
+    
+    
+    AVPlayer *player = [AVPlayer playerWithURL: fileURL];
+    
+    // create a player view controller
+    AVPlayerViewController *controller = [[AVPlayerViewController alloc] init];
+    [self presentViewController:controller animated:YES completion:nil];
+    controller.player = player;
+    [player play];
+}
+
 @end

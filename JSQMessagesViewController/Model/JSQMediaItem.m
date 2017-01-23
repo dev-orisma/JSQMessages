@@ -35,6 +35,8 @@
 
 - (instancetype)init
 {
+    
+    
     return [self initWithMaskAsOutgoing:YES];
 }
 
@@ -44,6 +46,15 @@
     if (self) {
         _appliesMediaViewMaskAsOutgoing = maskAsOutgoing;
         _cachedPlaceholderView = nil;
+        
+        
+//        if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+//            _fixedSize = CGSizeMake(315.0f, 225.0f);
+//        }else{
+//            _fixedSize = CGSizeMake(210.0f, 150.0f);
+//        }
+        
+        
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(didReceiveMemoryWarningNotification:)
                                                      name:UIApplicationDidReceiveMemoryWarningNotification
@@ -85,11 +96,7 @@
 
 - (CGSize)mediaViewDisplaySize
 {
-    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
-        return CGSizeMake(315.0f, 225.0f);
-    }
-    
-    return CGSizeMake(210.0f, 150.0f);
+    return self.mediaView.frame.size;
 }
 
 - (UIView *)mediaPlaceholderView

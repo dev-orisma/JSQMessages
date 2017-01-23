@@ -90,31 +90,15 @@
     
     if (self.cachedImageView == nil) {
         
-        
-        if(_textView != nil){
-            CGSize size = [self mediaViewDisplaySize];
-            
-            [self.image drawInRect:CGRectMake(0, 0, size.width,  _textView.frame.size.height)];
-            
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
-            
-            imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height + _textView.frame.size.height);
-            //            imageView.contentMode = UIViewContentModeScaleAspectFill;
-            _textView.frame = CGRectMake(0,size.height, size.width, _textView.frame.size.height);
-            _textView.bounds = CGRectInset(_textView.frame, 2.0f, 2.0f);
-            
-            [imageView addSubview:_textView];
-            [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
-            self.cachedImageView = imageView;
-        }else{
-            CGSize size = [self mediaViewDisplaySize];
+            CGSize size = CGSizeMake(250, 155);
+            UIView *boxImg = [[UIView alloc] initWithFrame: CGRectMake(0.0f, 0.0f, size.width, size.height )];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
             
             imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height );
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
             self.cachedImageView = imageView;
-        }
+ 
         
         
     }

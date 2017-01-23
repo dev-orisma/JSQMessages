@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (assign, nonatomic) BOOL appliesMediaViewMaskAsOutgoing;
 
+@property (assign, nonatomic) CGSize fixedSize;
 /**
  *  Initializes and returns a media item with the specified value for maskAsOutgoing.
  *

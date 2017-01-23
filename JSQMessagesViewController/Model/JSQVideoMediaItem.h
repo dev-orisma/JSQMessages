@@ -15,8 +15,11 @@
 //  Copyright (c) 2014 Jesse Squires
 //  Released under an MIT license: http://opensource.org/licenses/MIT
 //
-
+#import "JSQMessagesViewController.h"
 #import "JSQMediaItem.h"
+
+#import <AVFoundation/AVFoundation.h>
+#import <AVKit/AVKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
