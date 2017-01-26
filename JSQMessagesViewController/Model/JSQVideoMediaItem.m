@@ -38,10 +38,10 @@
 
 - (instancetype)initWithFileURL:(NSURL *)fileURL isReadyToPlay:(BOOL)isReadyToPlay
 {
-    return [self initWithFileURL:fileURL isReadyToPlay:isReadyToPlay thumbnailImage:nil];
+    return [self initWithFileURL:fileURL isReadyToPlay:isReadyToPlay thumbnailImage:nil presentVC:nil];
 }
 
-- (instancetype)initWithFileURL:(NSURL *)fileURL isReadyToPlay:(BOOL)isReadyToPlay thumbnailImage:(UIImage *)thumbnailImage
+- (instancetype)initWithFileURL:(NSURL *)fileURL isReadyToPlay:(BOOL)isReadyToPlay thumbnailImage:(UIImage *)thumbnailImage  presentVC:(UIViewController *)presentVC
 {
     self = [super init];
     if (self) {
@@ -51,6 +51,7 @@
         _cachedVideoImagePreview = nil;
         
         _thumbnailImage = thumbnailImage;
+        _presentVC = presentVC;
     }
     return self;
 }
@@ -110,7 +111,7 @@
         [self.playButton setImage:playIcon forState:UIControlStateSelected];
         [self.playButton addTarget:self action:@selector(onPlayVideo:) forControlEvents:UIControlEventTouchUpInside];
         
-        NSLog(@"TEST");
+ 
 
         [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:self.playButton isOutgoing:self.appliesMediaViewMaskAsOutgoing];
 
@@ -141,14 +142,22 @@
     }
     
     if (self.cachedVideoImagePreview == nil) {
-        CGSize size = CGSizeMake(250, 155);
-        UIImage *playIcon = [[UIImage jsq_defaultPlayImage] jsq_imageMaskedWithColor:[UIColor lightGrayColor]];
+         CGSize size = CGSizeMake(130.0f, 130.0f);
         
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:playIcon];
-        imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
-        imageView.contentMode = UIViewContentModeCenter;
-        imageView.clipsToBounds = YES;
-        [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
+        UIView *playView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+        playView.backgroundColor = [UIColor clearColor];
+        playView.contentMode = UIViewContentModeCenter;
+        playView.clipsToBounds = YES;
+        
+        UIImage *playIcon = [[UIImage jsq_defaultPlayImage] jsq_imageMaskedWithColor:[UIColor lightGrayColor]];
+        self.playButton = [[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+        
+        self.playButton.contentMode = UIViewContentModeCenter;
+        
+        [self.playButton setImage:playIcon forState:UIControlStateNormal];
+        [self.playButton setImage:playIcon forState:UIControlStateSelected];
+        [self.playButton addTarget:self action:@selector(onPlayVideo:) forControlEvents:UIControlEventTouchUpInside];
+        
         
         if (self.thumbnailImage) {
             NSInteger previewBoxSize = 130;
@@ -158,16 +167,16 @@
             thumbnailImageView.bounds = CGRectInset(thumbnailImageView.frame, 10.0f, 10.0f);
             thumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
             thumbnailImageView.clipsToBounds = YES;
+            self.playButton.backgroundColor = [UIColor clearColor];
+            [playView addSubview:thumbnailImageView];
+            [playView addSubview:self.playButton];
             
-            imageView.backgroundColor = [UIColor clearColor];
-            imageView.center = thumbnailImageView.center;
-            [thumbnailImageView addSubview:imageView];
-            [thumbnailImageView bringSubviewToFront:imageView] ;
-            self.cachedVideoImagePreview = thumbnailImageView;
+          
+            self.cachedVideoImagePreview = playView;
         }
         else {
-            imageView.backgroundColor = [UIColor blackColor];
-            self.cachedVideoImagePreview = imageView;
+            playView.backgroundColor = [UIColor blackColor];
+            self.cachedVideoImagePreview = playView;
         }
     }
     
@@ -190,13 +199,11 @@
     AVPlayer *player = [AVPlayer playerWithURL: self.fileURL];
     
     // create a player view controller
-    AVPlayerViewController *controller = [[AVPlayerViewController alloc] init];
-    UIViewController *xx = [UIViewController alloc];
-    [xx presentViewController:controller animated:YES completion:nil];
+    AVPlayerViewController *controller = [[AVPlayerViewController alloc] init]; 
+    [self.presentVC presentViewController:controller animated:YES completion:nil];
     controller.player = player;
     [player play];
-
-  
+ 
 //    [JSQMessagesViewController jsq_playvideo:self.fileURL];
     
 }
@@ -234,6 +241,7 @@
         _fileURL = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(fileURL))];
         _isReadyToPlay = [aDecoder decodeBoolForKey:NSStringFromSelector(@selector(isReadyToPlay))];
         _thumbnailImage = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(thumbnailImage))];
+         _presentVC = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(presentVC))];
     }
     return self;
 }
@@ -244,6 +252,7 @@
     [aCoder encodeObject:self.fileURL forKey:NSStringFromSelector(@selector(fileURL))];
     [aCoder encodeBool:self.isReadyToPlay forKey:NSStringFromSelector(@selector(isReadyToPlay))];
     [aCoder encodeObject:self.thumbnailImage forKey:NSStringFromSelector(@selector(thumbnailImage))];
+    [aCoder encodeObject:self.presentVC forKey:NSStringFromSelector(@selector(presentVC))];
 }
 
 #pragma mark - NSCopying
@@ -252,7 +261,8 @@
 {
     JSQVideoMediaItem *copy = [[[self class] allocWithZone:zone] initWithFileURL:self.fileURL
                                                                    isReadyToPlay:self.isReadyToPlay
-                                                                  thumbnailImage:self.thumbnailImage];
+                                                                  thumbnailImage:self.thumbnailImage
+                                                                       presentVC:self.presentVC];
     copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
     return copy;
 }

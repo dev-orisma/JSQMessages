@@ -210,7 +210,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 - (void)setMediaObjs:(NSMutableArray *)mediaObjs
 {
     
-    NSLog(@"mediaObjs");
+   
     if(mediaObjs.count <= 0){
         self.scrollPreview.hidden = YES;
         

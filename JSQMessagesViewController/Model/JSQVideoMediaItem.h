@@ -48,6 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, assign) BOOL isReadyToPlay;
 
+
+@property (nonatomic, strong, nullable) UIViewController *presentVC;
+
 /**
  *  Initializes and returns a video media item having the given fileURL.
  *
@@ -80,7 +83,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithFileURL:(NSURL *)fileURL
                   isReadyToPlay:(BOOL)isReadyToPlay
-                 thumbnailImage:(nullable UIImage *)thumbnailImage;
+                 thumbnailImage:(nullable UIImage *)thumbnailImage
+                    presentVC:(nullable UIViewController *)presentVC;
 
 @end
 

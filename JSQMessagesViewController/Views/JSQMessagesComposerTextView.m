@@ -231,7 +231,6 @@
 
     if ([self.text length] == 0 && self.placeHolder) {
         [self.placeHolderTextColor set];
-        
         [self.placeHolder drawInRect:UIEdgeInsetsInsetRect(rect, self.placeHolderInsets)
                       withAttributes:[self jsq_placeholderTextAttributes]];
     }

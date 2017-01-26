@@ -116,8 +116,6 @@
     }
     
     if (self.cachedImagePreview == nil) {
-        
-        
             CGSize size = CGSizeMake(130.0f, 130.0f);
             UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
             
@@ -126,8 +124,6 @@
             imageView.contentMode = UIViewContentModeScaleAspectFit;
         
             self.cachedImagePreview = imageView;
- 
-        
     }
     
     return self.cachedImagePreview;

@@ -58,7 +58,6 @@
 + (void)applyBubbleImageMaskToMediaView:(UIView *)mediaView isOutgoing:(BOOL)isOutgoing
 {
     JSQMessagesMediaViewBubbleImageMasker *masker = [[JSQMessagesMediaViewBubbleImageMasker alloc] init];
-    
     if (isOutgoing) {
         [masker applyOutgoingBubbleImageMaskToMediaView:mediaView];
     }
@@ -73,11 +72,12 @@
 {
     NSParameterAssert(view != nil);
     NSParameterAssert(image != nil);
-    
-    UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:image];
-    imageViewMask.frame = CGRectInset(view.frame, 2.0f, 2.0f);
-    
-    view.layer.mask = imageViewMask.layer;
+//    
+//    UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:image];
+//    imageViewMask.frame = CGRectInset(view.frame, 2.0f, 2.0f);
+    view.layer.cornerRadius = 20.0;
+    view.layer.masksToBounds = YES;
+//    view.layer.mask = imageViewMask.layer;
 }
 
 @end

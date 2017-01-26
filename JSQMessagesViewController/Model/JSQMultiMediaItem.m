@@ -22,7 +22,7 @@
 #import "JSQVideoMediaItem.h"
 #import "JSQMessagesMediaPlaceholderView.h"
 #import "JSQMessagesMediaViewBubbleImageMasker.h"
-
+#import "JSQMessage.h"
 
 #import <MobileCoreServices/UTCoreTypes.h>
 
@@ -101,47 +101,6 @@
 
 #pragma mark - JSQMessageMediaData protocol
 
-//
-//
-//- (UIView *)mediaView
-//{
-//    if (self.image == nil) {
-//        return nil;
-//    }
-//    
-//    if (self.cachedImageView == nil) {
-//        
-//        
-//        if(_textView != nil){
-//            CGSize size = [self mediaViewDisplaySize];
-//            
-//            [self.image drawInRect:CGRectMake(0, 0, size.width,  _textView.frame.size.height)];
-//            
-//            UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
-//            
-//            imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height + _textView.frame.size.height);
-//            //            imageView.contentMode = UIViewContentModeScaleAspectFill;
-//            _textView.frame = CGRectMake(0,size.height, size.width, _textView.frame.size.height);
-//            _textView.bounds = CGRectInset(_textView.frame, 2.0f, 2.0f);
-//            
-//            [imageView addSubview:_textView];
-//            [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
-//            self.cachedImageView = imageView;
-//        }else{
-//            CGSize size = [self mediaViewDisplaySize];
-//            UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
-//            
-//            imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height );
-//            imageView.contentMode = UIViewContentModeScaleAspectFill;
-//            [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
-//            self.cachedImageView = imageView;
-//        }
-//        
-//        
-//    }
-//    
-//    return self.cachedImageView;
-//}
 
 - (UIView *)mediaView
 {
@@ -166,29 +125,56 @@
                 JSQPhotoMediaItem *jsqphoto = [self.data objectAtIndex:i];
                 UIImageView *imageView = jsqphoto.mediaView;
                 imageView.frame = CGRectMake(0, item_y,imageView.frame.size.width, imageView.frame.size.height);
-                resViewHeight = resViewHeight+imageView.frame.size.height;
-                item_y = item_y + imageView.frame.size.height;
+                resViewHeight = resViewHeight+imageView.frame.size.height + 5;
+                item_y = item_y + imageView.frame.size.height + 5;
                 [resView addSubview:imageView];
             }else if([[self.data objectAtIndex:i] isKindOfClass:[JSQAudioMediaItem class]]){
                 JSQAudioMediaItem *jsqaudio = [self.data objectAtIndex:i];
                 UIView *myview = jsqaudio.mediaView;
                 myview.frame = CGRectMake(maxWidth - myview.frame.size.width, item_y,myview.frame.size.width, myview.frame.size.height);
-                resViewHeight = resViewHeight+myview.frame.size.height;
-                item_y = item_y + myview.frame.size.height;
+                resViewHeight = resViewHeight+myview.frame.size.height + 5;
+                item_y = item_y + myview.frame.size.height + 5;
                 [resView addSubview:myview];
             }else if([[self.data objectAtIndex:i] isKindOfClass:[JSQVideoMediaItem class]]){
                 JSQVideoMediaItem *jsqaudio = [self.data objectAtIndex:i];
                 UIImageView *imageView = jsqaudio.mediaView;
                 imageView.frame = CGRectMake(0, item_y,imageView.frame.size.width, imageView.frame.size.height);
-                resViewHeight = resViewHeight+imageView.frame.size.height;
-                item_y = item_y + imageView.frame.size.height;
+                resViewHeight = resViewHeight+imageView.frame.size.height + 5;
+                item_y = item_y + imageView.frame.size.height + 5;
                 [resView addSubview:imageView];
+            }else if([[self.data objectAtIndex:i] isKindOfClass:[NSString class]]){
+                NSLog(@"%@", [self.data objectAtIndex:i]);
+                NSLog(@"ssssss");
+                NSString *text = [self.data objectAtIndex:i];
+                
+                UIFont *customFont = [UIFont systemFontOfSize:18];
+                CGSize labelSize = [text sizeWithFont:customFont constrainedToSize:CGSizeMake(250, 155) lineBreakMode:NSLineBreakByTruncatingTail];
+                UILabel *fromLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, labelSize.width, labelSize.height)];
+                fromLabel.text = text;
+                fromLabel.textColor = [UIColor whiteColor];
+                fromLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+                fromLabel.font = customFont;
+                fromLabel.numberOfLines = 0;
+                fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines; // or UIBaselineAdjustmentAlignCenters, or UIBaselineAdjustmentNone
+                fromLabel.adjustsFontSizeToFitWidth = YES;
+                fromLabel.adjustsLetterSpacingToFitWidth = YES;
+                fromLabel.clipsToBounds = YES;
+                fromLabel.textAlignment = NSTextAlignmentLeft;
+
+                UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(maxWidth - fromLabel.frame.size.width - 20, item_y, fromLabel.frame.size.width + 20, fromLabel.frame.size.height + 20)];
+                myview.backgroundColor =  [UIColor lightGrayColor];
+                myview.layer.cornerRadius = 20.0;
+                myview.layer.masksToBounds = YES;
+                [myview addSubview:fromLabel];
+                resViewHeight = resViewHeight + myview.frame.size.height + 5;
+                item_y = item_y + myview.frame.size.height + 5;
+                 [resView addSubview:myview];
             }
             
             
             // do stuff
         }
-        resView.frame = CGRectMake(0, 0,maxWidth, resViewHeight);
+        resView.frame = CGRectMake(0, 0,maxWidth, resViewHeight - 5 );
         
         
         self.cachedImageView = resView;
@@ -199,32 +185,6 @@
 }
 
 
-//
-//
-//- (UIView *)mediaPreview
-//{
-//    if (self.image == nil) {
-//        return nil;
-//    }
-//    
-//    if (self.cachedImagePreview == nil) {
-//        
-//        
-//        CGSize size = CGSizeMake(130.0f, 130.0f);
-//        UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
-//        
-//        imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height );
-//        imageView.bounds = CGRectInset(imageView.frame, 10.0f, 10.0f);
-//        imageView.contentMode = UIViewContentModeScaleAspectFit;
-//        
-//        self.cachedImagePreview = imageView;
-//        
-//        
-//    }
-//    
-//    return self.cachedImagePreview;
-//}
-//
 
 - (NSUInteger)mediaHash
 {
