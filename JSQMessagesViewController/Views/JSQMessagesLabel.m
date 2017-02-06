@@ -59,6 +59,8 @@
 
 - (void)drawTextInRect:(CGRect)rect
 {
+    
+    
     [super drawTextInRect:CGRectMake(CGRectGetMinX(rect) + self.textInsets.left,
                                      CGRectGetMinY(rect) + self.textInsets.top,
                                      CGRectGetWidth(rect) - self.textInsets.right,
