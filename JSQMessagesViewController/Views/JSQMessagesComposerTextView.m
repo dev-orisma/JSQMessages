@@ -283,7 +283,7 @@
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
     paragraphStyle.alignment = self.textAlignment;
-
+ 
     return @{ NSFontAttributeName : self.font,
               NSForegroundColorAttributeName : self.placeHolderTextColor,
               NSParagraphStyleAttributeName : paragraphStyle };
