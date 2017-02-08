@@ -383,7 +383,7 @@
         
         // sizeToFit adjusts the frame's height to the font
         [self.progressLabel sizeToFit];
-        NSLog(@"%f", self.progressLabel.frame.size.width);
+//        NSLog(@"%f", self.progressLabel.frame.size.width);
         labelFrame.origin.x = (previewBoxSize / 2) - (self.progressLabel.frame.size.width / 2) + 4;
         labelFrame.origin.y =  70;
         labelFrame.size.width = self.progressLabel.frame.size.width;

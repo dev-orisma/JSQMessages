@@ -200,7 +200,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     
     _collectionView.dataSource = nil;
     _collectionView.delegate = nil;
-    //    _mediaObjs = [[NSMutableArray alloc] init];
+        _mediaObjs = [[NSMutableArray alloc] init];
     _inputToolbar.contentView.textView.delegate = nil;
     _inputToolbar.delegate = nil;
 }

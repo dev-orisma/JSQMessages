@@ -143,6 +143,11 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapGesture:)];
     [self addGestureRecognizer:tap];
     self.tapGestureRecognizer = tap;
+    
+    
+    
+    
+    
 }
 
 - (void)configureAccessoryButton
@@ -204,11 +209,9 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     if (self.textView.font != customAttributes.messageBubbleFont) {
         self.textView.font = customAttributes.messageBubbleFont;
     }
-    
     if (!UIEdgeInsetsEqualToEdgeInsets(self.textView.textContainerInset, customAttributes.textViewTextContainerInsets)) {
         self.textView.textContainerInset = customAttributes.textViewTextContainerInsets;
     }
-    
     self.textViewFrameInsets = customAttributes.textViewFrameInsets;
     
     [self jsq_updateConstraint:self.messageBubbleContainerWidthConstraint

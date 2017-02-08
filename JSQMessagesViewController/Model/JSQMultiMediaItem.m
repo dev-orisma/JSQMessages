@@ -22,8 +22,7 @@
 #import "JSQVideoMediaItem.h"
 #import "JSQMessagesMediaPlaceholderView.h"
 #import "JSQMessagesMediaViewBubbleImageMasker.h"
-#import "JSQMessage.h"
-
+#import "JSQMessage.h" 
 #import <MobileCoreServices/UTCoreTypes.h>
 
 @interface JSQMultiMediaItem ()
@@ -124,21 +123,21 @@
             if([[self.data objectAtIndex:i] isKindOfClass:[JSQPhotoMediaItem class]]){
                 JSQPhotoMediaItem *jsqphoto = [self.data objectAtIndex:i];
                 UIImageView *imageView = jsqphoto.mediaView;
-                imageView.frame = CGRectMake(0, item_y,imageView.frame.size.width, imageView.frame.size.height);
+                imageView.frame = CGRectMake(0, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
                 resViewHeight = resViewHeight+imageView.frame.size.height + 5;
                 item_y = item_y + imageView.frame.size.height + 5;
                 [resView addSubview:imageView];
             }else if([[self.data objectAtIndex:i] isKindOfClass:[JSQAudioMediaItem class]]){
                 JSQAudioMediaItem *jsqaudio = [self.data objectAtIndex:i];
                 UIView *myview = jsqaudio.mediaView;
-                myview.frame = CGRectMake(maxWidth - myview.frame.size.width, item_y,myview.frame.size.width, myview.frame.size.height);
+                myview.frame = CGRectMake(maxWidth - myview.frame.size.width - 5, item_y,myview.frame.size.width, myview.frame.size.height);
                 resViewHeight = resViewHeight+myview.frame.size.height + 5;
                 item_y = item_y + myview.frame.size.height + 5;
                 [resView addSubview:myview];
             }else if([[self.data objectAtIndex:i] isKindOfClass:[JSQVideoMediaItem class]]){
                 JSQVideoMediaItem *jsqaudio = [self.data objectAtIndex:i];
                 UIImageView *imageView = jsqaudio.mediaView;
-                imageView.frame = CGRectMake(0, item_y,imageView.frame.size.width, imageView.frame.size.height);
+                imageView.frame = CGRectMake(0, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
                 resViewHeight = resViewHeight+imageView.frame.size.height + 5;
                 item_y = item_y + imageView.frame.size.height + 5;
                 [resView addSubview:imageView];
@@ -147,23 +146,73 @@
                 NSLog(@"ssssss");
                 NSString *text = [self.data objectAtIndex:i];
                 
-                UIFont *customFont = [UIFont systemFontOfSize:18];
+                UIFont *customFont = [UIFont fontWithName:@"DBHelvethaicaMonX" size:24.0f];
                 CGSize labelSize = [text sizeWithFont:customFont constrainedToSize:CGSizeMake(250, 155) lineBreakMode:NSLineBreakByTruncatingTail];
-                UILabel *fromLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, labelSize.width, labelSize.height)];
+                
+                NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];
+                NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+                paragraphStyle.lineSpacing = 0.0f;
+                paragraphStyle.lineHeightMultiple = 0.8f;
+                [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0,  text.length)];
+                
+                
+                
+                CGRect stringRect = [text boundingRectWithSize:CGSizeMake(maxWidth, CGFLOAT_MAX)
+                                                                     options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
+                                                                  attributes:@{ NSFontAttributeName : customFont,  NSParagraphStyleAttributeName: paragraphStyle}
+                                                                     context:nil];
+                
+                
+                
+                UILabel *fromLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, stringRect.size.width, stringRect.size.height + 10)];
                 fromLabel.text = text;
-                fromLabel.textColor = [UIColor whiteColor];
+                 fromLabel.attributedText = attributedString;
+                fromLabel.textColor = [UIColor blackColor];
                 fromLabel.lineBreakMode = NSLineBreakByTruncatingTail;
                 fromLabel.font = customFont;
                 fromLabel.numberOfLines = 0;
+                
                 fromLabel.baselineAdjustment = UIBaselineAdjustmentAlignBaselines; // or UIBaselineAdjustmentAlignCenters, or UIBaselineAdjustmentNone
                 fromLabel.adjustsFontSizeToFitWidth = YES;
                 fromLabel.adjustsLetterSpacingToFitWidth = YES;
                 fromLabel.clipsToBounds = YES;
                 fromLabel.textAlignment = NSTextAlignmentLeft;
-
-                UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(maxWidth - fromLabel.frame.size.width - 20, item_y, fromLabel.frame.size.width + 20, fromLabel.frame.size.height + 20)];
-                myview.backgroundColor =  [UIColor lightGrayColor];
-                myview.layer.cornerRadius = 20.0;
+                fromLabel.backgroundColor = [UIColor clearColor];
+                
+               
+                
+                UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(maxWidth - fromLabel.frame.size.width - 35, item_y, fromLabel.frame.size.width + 30, fromLabel.frame.size.height + 5)];
+                
+                
+                unsigned rgbValue = 0;
+                NSScanner *scanner1 = [NSScanner scannerWithString:@"#D6A23F"];
+                [scanner1 setScanLocation:1]; // bypass '#' character
+                [scanner1 scanHexInt:&rgbValue];
+                UIColor *color1 = [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+                rgbValue = 0;
+                NSScanner *scanner2 = [NSScanner scannerWithString:@"#F5E5B9"];
+                [scanner2 setScanLocation:1]; // bypass '#' character
+                [scanner2 scanHexInt:&rgbValue];
+                UIColor *color2 = [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+                rgbValue = 0;
+                NSScanner *scanner3 = [NSScanner scannerWithString:@"#F0D57A"];
+                [scanner3 setScanLocation:1]; // bypass '#' character
+                [scanner3 scanHexInt:&rgbValue];
+                UIColor *color3 = [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+                
+                CAGradientLayer *gradientMask = [CAGradientLayer layer];
+                
+                gradientMask.frame = myview.bounds;
+                gradientMask.colors = @[(id)color1.CGColor,
+                                        (id)color2.CGColor,
+                                        (id)color3.CGColor];
+                gradientMask.locations = @[@0.0, @0.7, @1.0];
+                gradientMask.startPoint = CGPointMake(0.0, 0.5);   // start at left middle
+                gradientMask.endPoint = CGPointMake(1.0, 0.5);     // end at right middle
+                [myview.layer addSublayer:gradientMask];
+               
+                myview.backgroundColor =  [UIColor clearColor];
+                myview.layer.cornerRadius = 17.0;
                 myview.layer.masksToBounds = YES;
                 [myview addSubview:fromLabel];
                 resViewHeight = resViewHeight + myview.frame.size.height + 5;
@@ -184,6 +233,13 @@
     return self.cachedImageView;
 }
 
+- (UIColor *)jsq_messageBubbleHexColor:(NSString *)hexString {
+    unsigned rgbValue = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexString];
+    [scanner setScanLocation:1]; // bypass '#' character
+    [scanner scanHexInt:&rgbValue];
+    return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+}
 
 
 - (NSUInteger)mediaHash

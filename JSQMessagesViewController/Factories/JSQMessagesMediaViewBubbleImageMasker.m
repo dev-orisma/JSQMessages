@@ -75,7 +75,7 @@
 //    
 //    UIImageView *imageViewMask = [[UIImageView alloc] initWithImage:image];
 //    imageViewMask.frame = CGRectInset(view.frame, 2.0f, 2.0f);
-    view.layer.cornerRadius = 20.0;
+    view.layer.cornerRadius = 17.0;
     view.layer.masksToBounds = YES;
 //    view.layer.mask = imageViewMask.layer;
 }

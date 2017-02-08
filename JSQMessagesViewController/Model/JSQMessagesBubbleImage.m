@@ -29,6 +29,7 @@
     
     self = [super init];
     if (self) {
+        
         _messageBubbleImage = image;
         _messageBubbleHighlightedImage = highlightedImage;
     }
@@ -52,6 +53,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
+  
     return [[[self class] allocWithZone:zone] initWithMessageBubbleImage:[UIImage imageWithCGImage:self.messageBubbleImage.CGImage]
                                                         highlightedImage:[UIImage imageWithCGImage:self.messageBubbleHighlightedImage.CGImage]];
 }
