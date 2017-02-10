@@ -130,7 +130,10 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollPreview;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollPreviewHeightConstraint;
 
+@property (weak, nonatomic) IBOutlet UIView *keyTexBox;
 @property (weak, nonatomic) IBOutlet UIButton *picButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *micButton;
 
 @end
 
@@ -181,7 +184,10 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     
     self.inputBar.layer.borderWidth = 0.5f;
     self.inputBar.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.keyTexBox.layer.borderWidth = 0.5f;
+    self.keyTexBox.layer.borderColor = [UIColor lightGrayColor].CGColor;
     
+    self.inputBarText.layer.borderColor = [UIColor clearColor].CGColor;
     self.performTextViewHeight = self.inputBarText.bounds.size.height;
     
     self.automaticallyScrollsToMostRecentMessage = YES;
@@ -201,7 +207,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     
     self.additionalContentInset = UIEdgeInsetsZero;
     
-    self.scrollPreview.backgroundColor = [UIColor lightGrayColor];
+    self.scrollPreview.backgroundColor = [UIColor whiteColor];
     
     self.mediaObjs = [[NSMutableArray alloc] init];
     
@@ -234,42 +240,60 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
    
         NSInteger viewcount= mediaObjs.count;
         NSInteger previewBoxSize = 130;
+        CGFloat cornerRadius = 17.0f;
+        NSInteger insetLR = 5;
+        CGFloat x = 0;
         for (int i = 0; i <viewcount; i++)
         {
-            CGFloat x = i * (previewBoxSize);
-            
             if([[mediaObjs objectAtIndex:i] isKindOfClass:[JSQPhotoMediaItem class]]){
                 JSQPhotoMediaItem *jsqphoto = [mediaObjs objectAtIndex:i];
                 
-                 UIImageView *imageView = jsqphoto.mediaPreview;
-                UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(x, 0,previewBoxSize, previewBoxSize)];
-                jsqphoto.mediaPreview.center = myview.center;
-                
-                myview.bounds = CGRectInset(myview.frame, 10.0f, 10.0f);
+                UIImageView *imageView = jsqphoto.mediaPreview;
+                UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(x + insetLR, insetLR,imageView.frame.size.width, imageView.frame.size.height)];
+                myview.backgroundColor = [UIColor redColor];
+ 
+               
+                myview.layer.borderWidth = 0.5f;
+                myview.layer.borderColor = [UIColor lightGrayColor].CGColor;
+                myview.layer.cornerRadius = cornerRadius;
+                myview.clipsToBounds = YES;
                 myview.backgroundColor = [UIColor clearColor];
                 [myview addSubview:imageView];
                 [self.scrollPreview addSubview:myview];
+                
+                x = x + myview.frame.size.width + (insetLR * 2);
+                
             }else if([[mediaObjs objectAtIndex:i] isKindOfClass:[JSQAudioMediaItem class]]){
                 JSQAudioMediaItem *jsqaudio = [mediaObjs objectAtIndex:i];
-                UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(x, 0,previewBoxSize, previewBoxSize)];
-                jsqaudio.mediaPreview.center = myview.center;
+                UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(x + insetLR, insetLR,previewBoxSize, previewBoxSize)];
+            
                 
-                myview.bounds = CGRectInset(myview.frame, 10.0f, 10.0f);
-                myview.backgroundColor = [UIColor clearColor];
+                myview.layer.borderWidth = 0.5f;
+                myview.layer.borderColor = [UIColor lightGrayColor].CGColor;
+                myview.layer.cornerRadius = cornerRadius;
+                myview.clipsToBounds = YES;
+                myview.backgroundColor = [UIColor redColor];
                 [myview addSubview:jsqaudio.mediaPreview];
                 [self.scrollPreview addSubview:myview];
+                
+                x = x + myview.frame.size.width + (insetLR * 2);
+                
             }else if([[mediaObjs objectAtIndex:i] isKindOfClass:[JSQVideoMediaItem class]]){
                 JSQVideoMediaItem *jsqaudio = [mediaObjs objectAtIndex:i];
-                UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(x, 0,previewBoxSize, previewBoxSize)];
-                jsqaudio.mediaPreview.center = myview.center;
+                UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(x + insetLR, insetLR,previewBoxSize, previewBoxSize)];
+            
                 
-                myview.bounds = CGRectInset(myview.frame, 10.0f, 10.0f);
+                myview.layer.borderWidth = 0.5f;
+                myview.layer.borderColor = [UIColor lightGrayColor].CGColor;
+                myview.layer.cornerRadius = cornerRadius;
+                myview.clipsToBounds = YES;
                 myview.backgroundColor = [UIColor clearColor];
                 [myview addSubview:jsqaudio.mediaPreview];
                 [self.scrollPreview addSubview:myview];
+                 x = x + myview.frame.size.width + (insetLR * 2);
             }
         }
-        self.scrollPreview.contentSize = CGSizeMake(previewBoxSize *viewcount, self.scrollPreview.frame.size.height);
+        self.scrollPreview.contentSize = CGSizeMake(x, self.scrollPreview.frame.size.height);
     }
     
     _mediaObjs = mediaObjs;
@@ -1133,7 +1157,6 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     double animationDuration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
     
-    
     self.bottomHeight = 0;
     NSLog(@"hide %d",animationCurveOption);
     self.inputBarBottomConstraint.constant = 0;
@@ -1153,12 +1176,36 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 - (void)openScrollPreview{
     self.scrollPreviewHeightConstraint.constant = 140;
+    [UIView animateWithDuration:0.25
+                          delay:0.0
+                        options:1
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                         
+                         const UIEdgeInsets insets = self.additionalContentInset;
+                         double bottoms = insets.bottom + 55;
+                         [self jsq_setCollectionViewInsetsTopValue:insets.top
+                                                       bottomValue:bottoms];
+                     }
+                     completion:nil];
 }
 
 - (void)closeScrollPreview{
     self.scrollPreviewHeightConstraint.constant = 0;
-    
+//    [UIView animateWithDuration:0.25
+//                          delay:0.0
+//                        options:1
+//                     animations:^{
+//                         [self.view layoutIfNeeded];
+//                         
+//                         const UIEdgeInsets insets = self.additionalContentInset;
+//                         double bottoms = insets.bottom + 55;
+//                         [self jsq_setCollectionViewInsetsTopValue:insets.top
+//                                                       bottomValue:bottoms];
+//                     }
+//                     completion:nil];
 }
+
 
 - (void)jsq_playvideo:(NSURL *)fileURL
 {

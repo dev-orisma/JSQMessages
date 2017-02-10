@@ -164,7 +164,6 @@
 
             UIImageView *thumbnailImageView = [[UIImageView alloc] initWithImage:self.thumbnailImage];
             thumbnailImageView.frame = CGRectMake(0.0f, 0.0f,previewBoxSize, previewBoxSize);
-            thumbnailImageView.bounds = CGRectInset(thumbnailImageView.frame, 10.0f, 10.0f);
             thumbnailImageView.contentMode = UIViewContentModeScaleAspectFill;
             thumbnailImageView.clipsToBounds = YES;
             self.playButton.backgroundColor = [UIColor clearColor];

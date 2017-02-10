@@ -116,13 +116,14 @@
     }
     
     if (self.cachedImagePreview == nil) {
-            CGSize size = CGSizeMake(130.0f, 130.0f);
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
-            
-            imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height );
-            imageView.bounds = CGRectInset(imageView.frame, 10.0f, 10.0f);
-            imageView.contentMode = UIViewContentModeScaleAspectFit;
         
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
+            CGFloat newWidth = (self.image.size.width/self.image.size.height) * 130.0f;
+            CGSize size = CGSizeMake(newWidth, 130.0f);
+        
+            imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height );
+            imageView.contentMode = UIViewContentModeScaleAspectFit;
+            imageView.backgroundColor = [UIColor blueColor];
             self.cachedImagePreview = imageView;
     }
     

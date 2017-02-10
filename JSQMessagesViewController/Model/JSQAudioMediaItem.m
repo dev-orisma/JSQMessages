@@ -339,20 +339,25 @@
         // create container view for the various controls
         NSInteger previewBoxSize = 130;
         UIView * playView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, previewBoxSize, previewBoxSize)];
-        playView.bounds = CGRectInset(playView.frame, 10.0f, 10.0f);
+//        playView.bounds = CGRectInset(playView.frame, 10.0f, 10.0f);
         playView.backgroundColor = self.audioViewAttributes.backgroundColor;
         playView.contentMode = UIViewContentModeCenter;
         playView.clipsToBounds = YES;
         
         // create the play button
-        CGRect buttonFrame = CGRectMake((previewBoxSize/2) - (self.audioViewAttributes.playButtonImage.size.width / 2), 25,
-                                        self.audioViewAttributes.playButtonImage.size.width,
-                                        self.audioViewAttributes.playButtonImage.size.height);
+        
+        CGSize playBTSize = CGSizeMake(self.audioViewAttributes.playButtonImage.size.width + 0, self.audioViewAttributes.playButtonImage.size.height + 0);
+        CGRect buttonFrame = CGRectMake((previewBoxSize/2) - (playBTSize.width / 2), 25,
+                                        playBTSize.width,
+                                       playBTSize.height);
         
         self.playButton = [[UIButton alloc] initWithFrame:buttonFrame];
         [self.playButton setImage:self.audioViewAttributes.playButtonImage forState:UIControlStateNormal];
         [self.playButton setImage:self.audioViewAttributes.pauseButtonImage forState:UIControlStateSelected];
         [self.playButton addTarget:self action:@selector(onPlayButton:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
+        
         [playView addSubview:self.playButton];
         
         // create a label to show the duration / elapsed time
@@ -372,6 +377,9 @@
         else if ([durationString length] < 6) {
             labelSize = CGSizeMake(30, 18);
         }
+        
+        
+        labelSize = CGSizeMake(120,18);
         
         CGRect labelFrame = CGRectMake(10, 10, labelSize.width, labelSize.height);
         self.progressLabel = [[UILabel alloc] initWithFrame:labelFrame];
