@@ -12,8 +12,13 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JSQMessagesViewController">
             <connections>
                 <outlet property="collectionView" destination="l9u-2b-4LK" id="bLP-6g-CkO"/>
-                <outlet property="inputToolbar" destination="BoD-Az-3DM" id="w74-g9-1qA"/>
+                <outlet property="inputBar" destination="zSe-kp-Prg" id="tYW-f9-LFi"/>
+                <outlet property="inputBarBottomConstraint" destination="Z12-rz-0sm" id="eo2-63-aah"/>
+                <outlet property="inputBarHeightConstraint" destination="DJT-aH-rsP" id="4Pr-jL-Ut9"/>
+                <outlet property="inputBarText" destination="Ah3-0i-FMc" id="1bM-Zu-aQS"/>
+                <outlet property="picButton" destination="u99-da-1JK" id="8Mo-VU-Nrt"/>
                 <outlet property="scrollPreview" destination="cEp-vy-YTH" id="WLd-k0-6rd"/>
+                <outlet property="scrollPreviewHeightConstraint" destination="PR8-4A-GiA" id="EsJ-bu-8Kz"/>
                 <outlet property="view" destination="mUa-cS-ru4" id="nki-T1-RTI"/>
             </connections>
         </placeholder>
@@ -22,30 +27,70 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="l9u-2b-4LK" customClass="JSQMessagesCollectionView">
+                <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="l9u-2b-4LK" customClass="JSQMessagesCollectionView">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.84705882349999995" green="0.13725490200000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                     <collectionViewLayout key="collectionViewLayout" id="dZl-7C-LHR" customClass="JSQMessagesCollectionViewFlowLayout"/>
                     <cells/>
                 </collectionView>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="BoD-Az-3DM" customClass="JSQMessagesInputToolbar">
-                    <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                    <items/>
-                </toolbar>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cEp-vy-YTH">
-                    <rect key="frame" x="0.0" y="525" width="375" height="142"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zSe-kp-Prg">
+                    <rect key="frame" x="0.0" y="612" width="375" height="55"/>
+                    <subviews>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ah3-0i-FMc" customClass="JSQMessagesComposerTextView">
+                            <rect key="frame" x="97" y="0.0" width="222" height="55"/>
+                            <color key="backgroundColor" red="0.84705882349999995" green="0.13725490200000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="AoS-dw-25T"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cEp-vy-YTH">
+                            <rect key="frame" x="97" y="0.0" width="222" height="0.0"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" id="PR8-4A-GiA"/>
+                            </constraints>
+                        </scrollView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="Ah3-0i-FMc" firstAttribute="height" relation="lessThanOrEqual" secondItem="zSe-kp-Prg" secondAttribute="height" id="0T5-XI-0K8"/>
+                        <constraint firstItem="cEp-vy-YTH" firstAttribute="top" secondItem="zSe-kp-Prg" secondAttribute="top" id="8tj-qK-v1M"/>
+                        <constraint firstItem="Ah3-0i-FMc" firstAttribute="leading" secondItem="zSe-kp-Prg" secondAttribute="leading" constant="97" id="Ajy-5q-DKZ"/>
+                        <constraint firstAttribute="trailing" secondItem="Ah3-0i-FMc" secondAttribute="trailing" constant="56" id="CP6-Kz-1Nz"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="55" id="DJT-aH-rsP"/>
+                        <constraint firstItem="Ah3-0i-FMc" firstAttribute="top" secondItem="cEp-vy-YTH" secondAttribute="bottom" id="F2R-rC-d6k"/>
+                        <constraint firstItem="cEp-vy-YTH" firstAttribute="trailing" secondItem="Ah3-0i-FMc" secondAttribute="trailing" id="TnQ-FT-lha"/>
+                        <constraint firstAttribute="bottom" secondItem="Ah3-0i-FMc" secondAttribute="bottom" id="gT4-CN-Zh1"/>
+                        <constraint firstItem="cEp-vy-YTH" firstAttribute="leading" secondItem="Ah3-0i-FMc" secondAttribute="leading" id="nuo-VT-Buk"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u99-da-1JK">
+                    <rect key="frame" x="16" y="629" width="43" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="p1M-yp-mQW"/>
+                    </constraints>
+                    <state key="normal" title="Pic">
+                        <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleShadowColor" red="0.94117647059999998" green="0.83529411760000005" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="BoD-Az-3DM" secondAttribute="trailing" id="7xc-Ha-asg"/>
-                <constraint firstItem="l9u-2b-4LK" firstAttribute="leading" secondItem="mUa-cS-ru4" secondAttribute="leading" id="MmF-oh-Y75"/>
-                <constraint firstAttribute="trailing" secondItem="l9u-2b-4LK" secondAttribute="trailing" id="O9u-TA-A0e"/>
-                <constraint firstAttribute="bottom" secondItem="l9u-2b-4LK" secondAttribute="bottom" id="Re7-WW-UmS"/>
-                <constraint firstItem="l9u-2b-4LK" firstAttribute="top" secondItem="mUa-cS-ru4" secondAttribute="top" id="dCQ-DM-Wdj"/>
-                <constraint firstAttribute="bottom" secondItem="BoD-Az-3DM" secondAttribute="bottom" id="rHs-6q-NX4"/>
-                <constraint firstItem="BoD-Az-3DM" firstAttribute="leading" secondItem="mUa-cS-ru4" secondAttribute="leading" id="ts7-8f-0lH"/>
+                <constraint firstItem="u99-da-1JK" firstAttribute="bottom" secondItem="zSe-kp-Prg" secondAttribute="bottom" constant="-13" id="0xv-yj-4FH"/>
+                <constraint firstItem="zSe-kp-Prg" firstAttribute="leading" secondItem="l9u-2b-4LK" secondAttribute="leading" id="Exs-dR-uiH"/>
+                <constraint firstItem="zSe-kp-Prg" firstAttribute="trailing" secondItem="l9u-2b-4LK" secondAttribute="trailing" id="G1Q-SV-I9b"/>
+                <constraint firstItem="l9u-2b-4LK" firstAttribute="leading" secondItem="mUa-cS-ru4" secondAttribute="leading" id="NgF-6N-064"/>
+                <constraint firstItem="zSe-kp-Prg" firstAttribute="width" secondItem="l9u-2b-4LK" secondAttribute="width" id="OM4-w1-Bw0"/>
+                <constraint firstItem="zSe-kp-Prg" firstAttribute="bottom" secondItem="l9u-2b-4LK" secondAttribute="bottom" id="Z12-rz-0sm"/>
+                <constraint firstItem="l9u-2b-4LK" firstAttribute="top" secondItem="mUa-cS-ru4" secondAttribute="top" id="ZHM-Zi-mxg"/>
+                <constraint firstAttribute="bottom" secondItem="l9u-2b-4LK" secondAttribute="bottom" id="fuJ-xx-rxH"/>
+                <constraint firstItem="u99-da-1JK" firstAttribute="leading" secondItem="zSe-kp-Prg" secondAttribute="leading" constant="16" id="k1W-iH-gE8"/>
+                <constraint firstItem="u99-da-1JK" firstAttribute="centerX" secondItem="zSe-kp-Prg" secondAttribute="centerX" constant="-150" id="pnh-Xd-dH0"/>
+                <constraint firstItem="u99-da-1JK" firstAttribute="trailing" secondItem="zSe-kp-Prg" secondAttribute="trailing" constant="-316" id="sTb-SV-bRW"/>
+                <constraint firstAttribute="trailing" secondItem="l9u-2b-4LK" secondAttribute="trailing" id="uTs-cO-7RI"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="35.5" y="53.5"/>

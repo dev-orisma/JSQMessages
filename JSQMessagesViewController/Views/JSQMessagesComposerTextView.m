@@ -38,17 +38,17 @@
 {
     [self setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-    CGFloat cornerRadius = 6.0f;
+    CGFloat cornerRadius = 0.0f;
 
     self.backgroundColor = [UIColor whiteColor];
     self.layer.borderWidth = 0.5f;
     self.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.layer.cornerRadius = cornerRadius;
+//    self.layer.cornerRadius = cornerRadius;
 
-    self.scrollIndicatorInsets = UIEdgeInsetsMake(cornerRadius, 0.0f, cornerRadius, 0.0f);
+//    self.scrollIndicatorInsets = UIEdgeInsetsMake(cornerRadius, 0.0f, cornerRadius, 0.0f);
 
-    self.textContainerInset = UIEdgeInsetsMake(4.0f, 2.0f, 4.0f, 2.0f);
-    self.contentInset = UIEdgeInsetsMake(1.0f, 0.0f, 1.0f, 0.0f);
+//    self.textContainerInset = UIEdgeInsetsMake(4.0f, 2.0f, 4.0f, 2.0f);
+//    self.contentInset = UIEdgeInsetsMake(1.0f, 0.0f, 1.0f, 0.0f);
 
     self.scrollEnabled = YES;
     self.scrollsToTop = NO;
@@ -274,6 +274,7 @@
 - (void)jsq_didReceiveTextViewNotification:(NSNotification *)notification
 {
     [self setNeedsDisplay];
+    NSLog(@"jsq_didReceiveTextViewNotification");
 }
 
 #pragma mark - Utilities

@@ -120,11 +120,17 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 @property (strong, nonatomic) NSIndexPath *selectedIndexPathForMenu;
 
 @property double bottomHeight;
+@property double performTextViewHeight;
 
+@property (weak, nonatomic) IBOutlet UIView *inputBar;
+@property (weak, nonatomic) IBOutlet JSQMessagesComposerTextView *inputBarText;
 
-
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *inputBarBottomConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *inputBarHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollPreview;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *scrollPreviewHeightConstraint;
 
+@property (weak, nonatomic) IBOutlet UIButton *picButton;
 
 @end
 
@@ -169,6 +175,14 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     self.inputToolbar.contentView.textView.delegate = self;
     self.inputToolbar.contentView.textView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     [self.inputToolbar removeFromSuperview];
+    [self.inputToolbar setHidden:YES];
+    
+    
+    
+    self.inputBar.layer.borderWidth = 0.5f;
+    self.inputBar.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
+    self.performTextViewHeight = self.inputBarText.bounds.size.height;
     
     self.automaticallyScrollsToMostRecentMessage = YES;
     
@@ -212,12 +226,12 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     
    
     if(mediaObjs.count <= 0){
-        self.scrollPreview.hidden = YES;
         
+        [self closeScrollPreview];
     }else{
-        self.inputToolbar.contentView.rightBarButtonItem.enabled = YES;
+        [self openScrollPreview];
         [self.scrollPreview.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        self.scrollPreview.hidden = NO;
+   
         NSInteger viewcount= mediaObjs.count;
         NSInteger previewBoxSize = 130;
         for (int i = 0; i <viewcount; i++)
@@ -600,7 +614,6 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
         
         cell.mediaView = [messageMedia mediaView] ?: [messageMedia mediaPlaceholderView];
         
-        
         if(isMediaWithTextMessage){
             cell.textView.text = [messageItem text];
             //            NSLog(@"%@",cell.textView.text);
@@ -766,9 +779,6 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
                 [[UIPasteboard generalPasteboard] setValue:[mediaData mediaData]
                                          forPasteboardType:[mediaData mediaDataType]];
             }
-            
-            
-            
         } else {
             [[UIPasteboard generalPasteboard] setString:[messageData text]];
         }
@@ -930,7 +940,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     if (!self.selectedIndexPathForMenu) {
         return;
     }
-    
+    NSLog(@"didReceiveMenuWillHideNotification");
     //  per comment above in 'shouldShowMenuForItemAtIndexPath:'
     //  re-enable 'selectable', thus re-enabling data detectors if present
     JSQMessagesCollectionViewCell *selectedCell = (JSQMessagesCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:self.selectedIndexPathForMenu];
@@ -940,6 +950,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 - (void)preferredContentSizeChanged:(NSNotification *)notification
 {
+    NSLog(@"preferredContentSizeChanged");
     [self.collectionView.collectionViewLayout invalidateLayout];
     [self.collectionView setNeedsLayout];
 }
@@ -960,10 +971,9 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 {
     UIEdgeInsets insets = UIEdgeInsetsMake(self.topLayoutGuide.length + top, 0.0f, self.bottomHeight + bottom, 0.0f);
     
-    
     self.collectionView.contentInset = insets;
     self.collectionView.scrollIndicatorInsets = insets;
-    
+   
 }
 
 - (BOOL)jsq_isMenuVisible
@@ -981,7 +991,11 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     if (registerForNotifications) {
         [center addObserver:self
                    selector:@selector(jsq_didReceiveKeyboardWillChangeFrameNotification:)
-                       name:UIKeyboardWillChangeFrameNotification
+                       name:UIKeyboardWillShowNotification
+                     object:nil];
+        [center addObserver:self
+                   selector:@selector(jsq_didReceiveKeyboardWillHideNotification:)
+                       name:UIKeyboardWillHideNotification
                      object:nil];
         
         [center addObserver:self
@@ -998,67 +1012,156 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
                    selector:@selector(preferredContentSizeChanged:)
                        name:UIContentSizeCategoryDidChangeNotification
                      object:nil];
-    }
+        
+        [center addObserver:self
+                                                 selector:@selector(jsq_TextViewNotification:)
+                                                     name:UITextViewTextDidChangeNotification
+                                                   object:self.inputBarText];
+        
+        [center addObserver:self
+                                                 selector:@selector(jsq_TextViewNotification:)
+                                                     name:UITextViewTextDidBeginEditingNotification
+                                                   object:self.inputBarText];
+        
+        [center addObserver:self
+                                                 selector:@selector(jsq_TextViewNotification:)
+                                                     name:UITextViewTextDidEndEditingNotification
+                                                   object:self.inputBarText];
+        
+         }
     else {
         [center removeObserver:self
-                          name:UIKeyboardWillChangeFrameNotification
+                          name:UIKeyboardWillShowNotification
                         object:nil];
-        
+        [center removeObserver:self
+                          name:UIKeyboardWillHideNotification
+                        object:nil];
         [center removeObserver:self
                           name:UIMenuControllerWillShowMenuNotification
                         object:nil];
-        
         [center removeObserver:self
                           name:UIMenuControllerWillHideMenuNotification
                         object:nil];
-        
         [center removeObserver:self
                           name:UIContentSizeCategoryDidChangeNotification
                         object:nil];
+        [center removeObserver:self
+                          name:UITextViewTextDidChangeNotification
+                        object:self.inputBarText];
+        [center removeObserver:self
+                          name:UITextViewTextDidBeginEditingNotification
+                        object:self.inputBarText];
+        [center removeObserver:self
+                          name:UITextViewTextDidEndEditingNotification
+                        object:self.inputBarText];
     }
+}
+
+- (void)jsq_TextViewNotification:(NSNotification *)notification
+{
+    [self.inputBarText setNeedsDisplay];
+    
+//    double fag = self.inputBarText.bounds.size.height - self.performTextViewHeight + 1;
+//    NSLog(@"jsq_TextViewNotification = %f perf = %f",fag,self.performTextViewHeight);
+//     self.inputBarHeightConstraint.constant = 55 + fag;
+//    [UIView animateWithDuration:0.25
+//                          delay:0.0
+//                        options:0
+//                     animations:^{
+//                         [self.view layoutIfNeeded];
+//                         const UIEdgeInsets insets = self.additionalContentInset;
+//                         double bottoms = insets.bottom + 55;
+//                         [self jsq_setCollectionViewInsetsTopValue:insets.top
+//                                                       bottomValue:bottoms];
+//                         NSInteger section = [self.collectionView numberOfSections] - 1;
+//                         NSInteger item = [self.collectionView numberOfItemsInSection:section] - 1;
+//                         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+//                         [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
+//                     }
+//                     completion:nil];
+
 }
 
 - (void)jsq_didReceiveKeyboardWillChangeFrameNotification:(NSNotification *)notification
 {
     
     NSDictionary *userInfo = [notification userInfo];
-    
     CGRect keyboardEndFrame = [userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
     if (CGRectIsNull(keyboardEndFrame)) {
-        
         return;
     }
     
-    
-    
-    self.scrollPreview.frame  = CGRectMake(0, self.collectionView.frame.size.height - self.scrollPreview.frame.size.height - CGRectGetHeight(keyboardEndFrame), self.scrollPreview.frame.size.width, self.scrollPreview.frame.size.height);
     
     UIViewAnimationCurve animationCurve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
     NSInteger animationCurveOption = (animationCurve << 16);
     
     double animationDuration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
+   
+    
     self.bottomHeight = CGRectGetHeight(keyboardEndFrame);
-    
-    
+     NSLog(@"test %f",animationDuration);
+     self.inputBarBottomConstraint.constant = 0 - self.bottomHeight;
     [UIView animateWithDuration:animationDuration
                           delay:0.0
                         options:animationCurveOption
                      animations:^{
+                         [self.view layoutIfNeeded];
                          const UIEdgeInsets insets = self.additionalContentInset;
-                         double bottoms = insets.bottom;
+                         double bottoms = insets.bottom + 55;
                          [self jsq_setCollectionViewInsetsTopValue:insets.top
                                                        bottomValue:bottoms];
+                         NSInteger section = [self.collectionView numberOfSections] - 1;
+                         NSInteger item = [self.collectionView numberOfItemsInSection:section] - 1;
+                         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+                         [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
                      }
                      completion:nil];
 }
 
 
-- (void)jsq_playvideo:(NSURL *)fileURL
+- (void)jsq_didReceiveKeyboardWillHideNotification:(NSNotification *)notification
 {
     
+    NSDictionary *userInfo = [notification userInfo];
     
+ 
+    
+    UIViewAnimationCurve animationCurve = [userInfo[UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    NSInteger animationCurveOption = (animationCurve << 16);
+    
+    double animationDuration = [userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    
+    
+    self.bottomHeight = 0;
+    NSLog(@"hide %d",animationCurveOption);
+    self.inputBarBottomConstraint.constant = 0;
+    [UIView animateWithDuration:0.1
+                          delay:0.0
+                        options:animationCurveOption
+                     animations:^{
+                         [self.view layoutIfNeeded];
+                         const UIEdgeInsets insets = self.additionalContentInset;
+                         double bottoms = insets.bottom + 55;
+                         [self jsq_setCollectionViewInsetsTopValue:insets.top
+                                                       bottomValue:bottoms];
+                     }
+                     completion:nil];
+
+}
+
+- (void)openScrollPreview{
+    self.scrollPreviewHeightConstraint.constant = 140;
+}
+
+- (void)closeScrollPreview{
+    self.scrollPreviewHeightConstraint.constant = 0;
+    
+}
+
+- (void)jsq_playvideo:(NSURL *)fileURL
+{
     AVPlayer *player = [AVPlayer playerWithURL: fileURL];
     
     // create a player view controller
