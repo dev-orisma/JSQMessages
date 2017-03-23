@@ -123,21 +123,26 @@
             if([[self.data objectAtIndex:i] isKindOfClass:[JSQPhotoMediaItem class]]){
                 JSQPhotoMediaItem *jsqphoto = [self.data objectAtIndex:i];
                 UIImageView *imageView = jsqphoto.mediaView;
-                imageView.frame = CGRectMake(0, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
+                imageView.frame = CGRectMake(10, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
                 resViewHeight = resViewHeight+imageView.frame.size.height + 5;
                 item_y = item_y + imageView.frame.size.height + 5;
                 [resView addSubview:imageView];
             }else if([[self.data objectAtIndex:i] isKindOfClass:[JSQAudioMediaItem class]]){
                 JSQAudioMediaItem *jsqaudio = [self.data objectAtIndex:i];
                 UIView *myview = jsqaudio.mediaView;
-                myview.frame = CGRectMake(maxWidth - myview.frame.size.width - 5, item_y,myview.frame.size.width, myview.frame.size.height);
+                CGFloat posAudioX = 10.0;
+                if ( self.appliesMediaViewMaskAsOutgoing ) {
+                    posAudioX = maxWidth - myview.frame.size.width - 5;
+                }
+                myview.frame = CGRectMake(posAudioX, item_y,myview.frame.size.width, myview.frame.size.height);
                 resViewHeight = resViewHeight+myview.frame.size.height + 5;
                 item_y = item_y + myview.frame.size.height + 5;
                 [resView addSubview:myview];
             }else if([[self.data objectAtIndex:i] isKindOfClass:[JSQVideoMediaItem class]]){
                 JSQVideoMediaItem *jsqaudio = [self.data objectAtIndex:i];
                 UIImageView *imageView = jsqaudio.mediaView;
-                imageView.frame = CGRectMake(0, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
+                
+                imageView.frame = CGRectMake(10, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
                 resViewHeight = resViewHeight+imageView.frame.size.height + 5;
                 item_y = item_y + imageView.frame.size.height + 5;
                 [resView addSubview:imageView];
@@ -179,9 +184,12 @@
                 fromLabel.textAlignment = NSTextAlignmentLeft;
                 fromLabel.backgroundColor = [UIColor clearColor];
                 
-               
+                CGFloat posAudioX = 10.0;
+                if ( self.appliesMediaViewMaskAsOutgoing ) {
+                    posAudioX = maxWidth - fromLabel.frame.size.width - 35;
+                }
                 
-                UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(maxWidth - fromLabel.frame.size.width - 35, item_y, fromLabel.frame.size.width + 30, fromLabel.frame.size.height + 5)];
+                UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(posAudioX, item_y, fromLabel.frame.size.width + 30, fromLabel.frame.size.height + 5)];
                 
                 
                 unsigned rgbValue = 0;

@@ -227,7 +227,7 @@
 
 - (CGSize)mediaViewDisplaySize
 {
-    return CGSizeMake(160.0f,
+    return CGSizeMake(140.0f,
                       self.audioViewAttributes.controlInsets.top +
                       self.audioViewAttributes.controlInsets.bottom +
                       self.audioViewAttributes.playButtonImage.size.height);
@@ -259,7 +259,7 @@
         playView.clipsToBounds = YES;
         
         // create the play button
-        CGRect buttonFrame = CGRectMake(leftInset,
+        CGRect buttonFrame = CGRectMake(self.audioViewAttributes.controlInsets.top,
                                         self.audioViewAttributes.controlInsets.top,
                                         self.audioViewAttributes.playButtonImage.size.width,
                                         self.audioViewAttributes.playButtonImage.size.height);
@@ -299,7 +299,7 @@
         
         // sizeToFit adjusts the frame's height to the font
         [self.progressLabel sizeToFit];
-        labelFrame.origin.x = size.width - self.progressLabel.frame.size.width - rightInset;
+        labelFrame.origin.x = size.width - self.progressLabel.frame.size.width;// - rightInset;
         labelFrame.origin.y =  ((size.height - self.progressLabel.frame.size.height) / 2);
         labelFrame.size.width = self.progressLabel.frame.size.width;
         labelFrame.size.height =  self.progressLabel.frame.size.height;
