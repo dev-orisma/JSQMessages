@@ -253,7 +253,8 @@
         
         // create container view for the various controls
         CGSize size = [self mediaViewDisplaySize];
-        UIView * playView = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, size.width, size.height)];
+        UIView * playView = [[UIView alloc] initWithFrame:CGRectMake(10.0f, 0.0f, size.width, size.height)];
+ 
         playView.backgroundColor = self.audioViewAttributes.backgroundColor;
         playView.contentMode = UIViewContentModeCenter;
         playView.clipsToBounds = YES;

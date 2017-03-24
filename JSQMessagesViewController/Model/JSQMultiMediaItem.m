@@ -123,14 +123,14 @@
             if([[self.data objectAtIndex:i] isKindOfClass:[JSQPhotoMediaItem class]]){
                 JSQPhotoMediaItem *jsqphoto = [self.data objectAtIndex:i];
                 UIImageView *imageView = jsqphoto.mediaView;
-                imageView.frame = CGRectMake(10, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
+                imageView.frame = CGRectMake(0, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
                 resViewHeight = resViewHeight+imageView.frame.size.height + 5;
                 item_y = item_y + imageView.frame.size.height + 5;
                 [resView addSubview:imageView];
             }else if([[self.data objectAtIndex:i] isKindOfClass:[JSQAudioMediaItem class]]){
                 JSQAudioMediaItem *jsqaudio = [self.data objectAtIndex:i];
                 UIView *myview = jsqaudio.mediaView;
-                CGFloat posAudioX = 10.0;
+                CGFloat posAudioX = 0.0;
                 if ( self.appliesMediaViewMaskAsOutgoing ) {
                     posAudioX = maxWidth - myview.frame.size.width - 5;
                 }
@@ -142,7 +142,7 @@
                 JSQVideoMediaItem *jsqaudio = [self.data objectAtIndex:i];
                 UIImageView *imageView = jsqaudio.mediaView;
                 
-                imageView.frame = CGRectMake(10, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
+                imageView.frame = CGRectMake(0, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
                 resViewHeight = resViewHeight+imageView.frame.size.height + 5;
                 item_y = item_y + imageView.frame.size.height + 5;
                 [resView addSubview:imageView];
@@ -184,15 +184,15 @@
                 fromLabel.textAlignment = NSTextAlignmentLeft;
                 fromLabel.backgroundColor = [UIColor clearColor];
                 
-                CGFloat posAudioX = 10.0;
+                CGFloat posAudioX = 0.0;
                 if ( self.appliesMediaViewMaskAsOutgoing ) {
                     posAudioX = maxWidth - fromLabel.frame.size.width - 35;
                 }
                 
                 UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(posAudioX, item_y, fromLabel.frame.size.width + 30, fromLabel.frame.size.height + 5)];
-                
-                
-                unsigned rgbValue = 0;
+                 unsigned rgbValue = 0;
+                if ( self.appliesMediaViewMaskAsOutgoing ) {
+                 
                 NSScanner *scanner1 = [NSScanner scannerWithString:@"#D6A23F"];
                 [scanner1 setScanLocation:1]; // bypass '#' character
                 [scanner1 scanHexInt:&rgbValue];
@@ -218,8 +218,12 @@
                 gradientMask.startPoint = CGPointMake(0.0, 0.5);   // start at left middle
                 gradientMask.endPoint = CGPointMake(1.0, 0.5);     // end at right middle
                 [myview.layer addSublayer:gradientMask];
-               
-                myview.backgroundColor =  [UIColor clearColor];
+                }
+                NSScanner *scanner1 = [NSScanner scannerWithString:@"#EEEEEE"];
+                [scanner1 setScanLocation:1]; // bypass '#' character
+                [scanner1 scanHexInt:&rgbValue];
+                UIColor *color1 = [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+                myview.backgroundColor =  color1;
                 myview.layer.cornerRadius = 17.0;
                 myview.layer.masksToBounds = YES;
                 [myview addSubview:fromLabel];

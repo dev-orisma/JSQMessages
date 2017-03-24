@@ -1138,8 +1138,12 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
                                                        bottomValue:bottoms];
                          NSInteger section = [self.collectionView numberOfSections] - 1;
                          NSInteger item = [self.collectionView numberOfItemsInSection:section] - 1;
-                         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
-                         [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
+                         
+                         if(item > 0){
+                             NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+                             [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:(UICollectionViewScrollPositionBottom) animated:YES];
+                         }
+                         
                      }
                      completion:nil];
 }
