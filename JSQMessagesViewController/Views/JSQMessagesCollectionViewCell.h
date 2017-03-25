@@ -175,6 +175,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (weak, nonatomic, nullable) UIView *mediaView;
 
+
+@property (weak, nonatomic, readonly, nullable)  NSLayoutConstraint *messageBubbleContainerWidthConstraint;
+
+@property (weak, nonatomic, readonly, nullable)  NSLayoutConstraint *textViewTopVerticalSpaceConstraint;
+@property (weak, nonatomic, readonly, nullable)  NSLayoutConstraint *textViewBottomVerticalSpaceConstraint;
+@property (weak, nonatomic, readonly, nullable)  NSLayoutConstraint *textViewAvatarHorizontalSpaceConstraint;
+@property (weak, nonatomic, readonly, nullable)  NSLayoutConstraint *textViewMarginHorizontalSpaceConstraint;
 /**
  *  Returns the underlying gesture recognizer for tap gestures in the avatarImageView of the cell.
  *  This gesture handles the tap event for the avatarImageView and notifies the cell's delegate.

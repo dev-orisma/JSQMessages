@@ -219,6 +219,8 @@
                 gradientMask.endPoint = CGPointMake(1.0, 0.5);     // end at right middle
                 [myview.layer addSublayer:gradientMask];
                 }
+                
+                
                 NSScanner *scanner1 = [NSScanner scannerWithString:@"#EEEEEE"];
                 [scanner1 setScanLocation:1]; // bypass '#' character
                 [scanner1 scanHexInt:&rgbValue];

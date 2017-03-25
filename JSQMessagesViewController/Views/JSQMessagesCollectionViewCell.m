@@ -214,8 +214,11 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     }
     self.textViewFrameInsets = customAttributes.textViewFrameInsets;
     
+    
+    
     [self jsq_updateConstraint:self.messageBubbleContainerWidthConstraint
                   withConstant:customAttributes.messageBubbleContainerViewWidth];
+    _messageBubbleContainerWidthConstraint = self.messageBubbleContainerWidthConstraint;
     
     [self jsq_updateConstraint:self.cellTopLabelHeightConstraint
                   withConstant:customAttributes.cellTopLabelHeight];
@@ -331,9 +334,13 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     }
     
     [self jsq_updateConstraint:self.textViewTopVerticalSpaceConstraint withConstant:textViewFrameInsets.top];
+    _textViewTopVerticalSpaceConstraint = self.textViewTopVerticalSpaceConstraint;
     [self jsq_updateConstraint:self.textViewBottomVerticalSpaceConstraint withConstant:textViewFrameInsets.bottom];
+    _textViewBottomVerticalSpaceConstraint = self.textViewBottomVerticalSpaceConstraint;
     [self jsq_updateConstraint:self.textViewAvatarHorizontalSpaceConstraint withConstant:textViewFrameInsets.right];
+    _textViewAvatarHorizontalSpaceConstraint = self.textViewAvatarHorizontalSpaceConstraint;
     [self jsq_updateConstraint:self.textViewMarginHorizontalSpaceConstraint withConstant:textViewFrameInsets.left];
+    _textViewMarginHorizontalSpaceConstraint = self.textViewMarginHorizontalSpaceConstraint;
 }
 
 - (void)setMediaView:(UIView *)mediaView
