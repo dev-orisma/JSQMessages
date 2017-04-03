@@ -59,9 +59,9 @@
     _image = [image copy];
     _cachedImageView = nil;
 }
+
 - (void)setTextView:(UITextView *)textView
 {
-    
     [textView  setFont:[UIFont systemFontOfSize:18]];
     CGFloat fixedWidth = textView.frame.size.width;
     CGSize newSize = [textView sizeThatFits:CGSizeMake(fixedWidth, MAXFLOAT)];
@@ -90,17 +90,28 @@
     
     if (self.cachedImageView == nil) {
         
-            CGSize size = CGSizeMake(250, 155);
-            UIView *boxImg = [[UIView alloc] initWithFrame: CGRectMake(0.0f, 0.0f, size.width, size.height )];
+        CGSize size;
+        if(self.image.size.width >= 250.0f || self.image.size.height >= 250.0f) {
+            if(self.image.size.width > self.image.size.height){
+                CGFloat heig = (self.image.size.height / self.image.size.width) * 250.0f;
+                size = CGSizeMake(250 , heig);
+            }else{
+                CGFloat wid = (self.image.size.width / self.image.size.height) * 250.0f;
+                size = CGSizeMake(wid , 250);
+            }
+        }else{
+            size = self.image.size;
+        }
+        
+//            UIView *boxImg = [[UIView alloc] initWithFrame: CGRectMake(0.0f, 0.0f, size.width, size.height )];
             UIImageView *imageView = [[UIImageView alloc] initWithImage:self.image];
             
-            imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height );
+            imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
             imageView.contentMode = UIViewContentModeScaleAspectFill;
+ 
             [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
             self.cachedImageView = imageView;
- 
-        
-        
+  
     }
     
     return self.cachedImageView;
@@ -165,6 +176,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        NSLog(@"initWithCoder Photo");
         _image = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(image))];
     }
     return self;

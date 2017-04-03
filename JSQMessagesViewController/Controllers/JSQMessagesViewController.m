@@ -252,14 +252,31 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
                 UIImageView *imageView = jsqphoto.mediaPreview;
                 UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(x + insetLR, insetLR,imageView.frame.size.width, imageView.frame.size.height)];
                 myview.backgroundColor = [UIColor redColor];
- 
-               
+  
                 myview.layer.borderWidth = 0.5f;
                 myview.layer.borderColor = [UIColor lightGrayColor].CGColor;
                 myview.layer.cornerRadius = cornerRadius;
                 myview.clipsToBounds = YES;
                 myview.backgroundColor = [UIColor clearColor];
                 [myview addSubview:imageView];
+                
+                UIImage *closeImg = [UIImage imageNamed:@"chat_pre_close"];
+                UIImageView *closeBT = [[UIImageView alloc] initWithImage: closeImg];
+                closeBT.backgroundColor = [UIColor colorWithRed:0. green:0 blue:0 alpha:0.5];
+                closeBT.contentMode = UIViewContentModeScaleAspectFill;
+                closeBT.frame = CGRectMake(myview.frame.size.width - 24 - 5.0f, 5.0f, 24, 24);
+                closeBT.layer.cornerRadius = 12;
+                [myview addSubview:closeBT];
+                
+                
+                closeBT.tag = i;
+                UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapClosePreview:)];
+                [singleTap setDelegate:self];
+                singleTap.numberOfTapsRequired = 1;
+                [closeBT setUserInteractionEnabled:YES];
+                [closeBT addGestureRecognizer:singleTap];
+ 
+                
                 [self.scrollPreview addSubview:myview];
                 
                 x = x + myview.frame.size.width + (insetLR * 2);
@@ -267,14 +284,31 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
             }else if([[mediaObjs objectAtIndex:i] isKindOfClass:[JSQAudioMediaItem class]]){
                 JSQAudioMediaItem *jsqaudio = [mediaObjs objectAtIndex:i];
                 UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(x + insetLR, insetLR,previewBoxSize, previewBoxSize)];
-            
-                
+             
                 myview.layer.borderWidth = 0.5f;
                 myview.layer.borderColor = [UIColor lightGrayColor].CGColor;
                 myview.layer.cornerRadius = cornerRadius;
                 myview.clipsToBounds = YES;
                 myview.backgroundColor = [UIColor redColor];
                 [myview addSubview:jsqaudio.mediaPreview];
+                
+                
+                UIImage *closeImg = [UIImage imageNamed:@"chat_pre_close"];
+                UIImageView *closeBT = [[UIImageView alloc] initWithImage: closeImg];
+                closeBT.backgroundColor = [UIColor colorWithRed:0. green:0 blue:0 alpha:0.5];
+                closeBT.contentMode = UIViewContentModeScaleAspectFill;
+                closeBT.frame = CGRectMake(myview.frame.size.width - 24 - 5.0f, 5.0f, 24, 24);
+                closeBT.layer.cornerRadius = 12;
+                [myview addSubview:closeBT];
+                
+                closeBT.tag = i;
+                UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapClosePreview:)];
+                [singleTap setDelegate:self];
+                singleTap.numberOfTapsRequired = 1;
+                [closeBT setUserInteractionEnabled:YES];
+                [closeBT addGestureRecognizer:singleTap];
+
+                
                 [self.scrollPreview addSubview:myview];
                 
                 x = x + myview.frame.size.width + (insetLR * 2);
@@ -282,15 +316,33 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
             }else if([[mediaObjs objectAtIndex:i] isKindOfClass:[JSQVideoMediaItem class]]){
                 JSQVideoMediaItem *jsqaudio = [mediaObjs objectAtIndex:i];
                 UIView *myview = [[UIView alloc] initWithFrame:CGRectMake(x + insetLR, insetLR,previewBoxSize, previewBoxSize)];
-            
-                
+             
                 myview.layer.borderWidth = 0.5f;
                 myview.layer.borderColor = [UIColor lightGrayColor].CGColor;
                 myview.layer.cornerRadius = cornerRadius;
                 myview.clipsToBounds = YES;
                 myview.backgroundColor = [UIColor clearColor];
                 [myview addSubview:jsqaudio.mediaPreview];
+                
+                
+                UIImage *closeImg = [UIImage imageNamed:@"chat_pre_close"];
+                UIImageView *closeBT = [[UIImageView alloc] initWithImage: closeImg];
+                closeBT.backgroundColor = [UIColor colorWithRed:0. green:0 blue:0 alpha:0.5];
+                closeBT.contentMode = UIViewContentModeScaleAspectFill;
+                closeBT.frame = CGRectMake(myview.frame.size.width - 24 - 5.0f, 5.0f, 24, 24);
+                closeBT.layer.cornerRadius = 12;
+                [myview addSubview:closeBT];
+                
+                closeBT.tag = i;
+                UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapClosePreview:)];
+                [singleTap setDelegate:self];
+                singleTap.numberOfTapsRequired = 1;
+                [closeBT setUserInteractionEnabled:YES];
+                [closeBT addGestureRecognizer:singleTap];
+
+                
                 [self.scrollPreview addSubview:myview];
+                 
                  x = x + myview.frame.size.width + (insetLR * 2);
             }
         }
@@ -299,6 +351,31 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     
     _mediaObjs = mediaObjs;
 }
+
+//- (void) jsq_handleTapClosePreview: (id)sender
+//{
+//    UIImageView *clo = sender;
+//    
+//    NSLog(@"TEST_jsq_handleTapClosePreview_%d",clo.tag);
+//}
+
+- (void)jsq_handleTapClosePreview:(UITapGestureRecognizer*)sender {
+    UIView *view = sender.view;
+    NSLog(@"By tag, you can find out where you had tapped. %d", view.tag);//By tag, you can find out where you had tapped.
+//    NSInteger *inxMedia = view.tag;
+//    NSLog(@"%d", inxMedia);//By tag, you can find out where you had tapped.
+    [_mediaObjs removeObjectAtIndex:view.tag];
+    [self setMediaObjs:_mediaObjs];
+//    _mediaObjs = self.mediaObjs;
+}
+
+//- (void)jsq_handleTapClosePreview:(UITapGestureRecognizer *)singleTap
+//{
+//
+//    NSLog(@"TEST_jsq_handleTapClosePreview"); 
+//}
+
+
 
 - (void)setShowTypingIndicator:(BOOL)showTypingIndicator
 {

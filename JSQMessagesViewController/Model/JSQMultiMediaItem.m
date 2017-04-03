@@ -56,6 +56,8 @@
         _data = [data copy];
         _cachedImageView = nil;
     }
+    
+    _cachedImageView = nil;
     return self;
 }
 
@@ -123,9 +125,16 @@
             if([[self.data objectAtIndex:i] isKindOfClass:[JSQPhotoMediaItem class]]){
                 JSQPhotoMediaItem *jsqphoto = [self.data objectAtIndex:i];
                 UIImageView *imageView = jsqphoto.mediaView;
-                imageView.frame = CGRectMake(0, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
+                CGFloat posAudioX = 0.0;
+                if ( self.appliesMediaViewMaskAsOutgoing ) {
+                    posAudioX = maxWidth - imageView.frame.size.width;
+                }
+                
+                imageView.frame = CGRectMake(posAudioX, item_y,imageView.frame.size.width - 5, imageView.frame.size.height);
+                
                 resViewHeight = resViewHeight+imageView.frame.size.height + 5;
                 item_y = item_y + imageView.frame.size.height + 5;
+                
                 [resView addSubview:imageView];
             }else if([[self.data objectAtIndex:i] isKindOfClass:[JSQAudioMediaItem class]]){
                 JSQAudioMediaItem *jsqaudio = [self.data objectAtIndex:i];
@@ -148,7 +157,7 @@
                 [resView addSubview:imageView];
             }else if([[self.data objectAtIndex:i] isKindOfClass:[NSString class]]){
                 NSLog(@"%@", [self.data objectAtIndex:i]);
-                NSLog(@"ssssss");
+        
                 NSString *text = [self.data objectAtIndex:i];
                 
                 UIFont *customFont = [UIFont fontWithName:@"DBHelvethaicaMonX" size:24.0f];
@@ -166,7 +175,6 @@
                                                                      options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading)
                                                                   attributes:@{ NSFontAttributeName : customFont,  NSParagraphStyleAttributeName: paragraphStyle}
                                                                      context:nil];
-                
                 
                 
                 UILabel *fromLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, stringRect.size.width, stringRect.size.height + 10)];
@@ -237,9 +245,10 @@
             
             // do stuff
         }
+        NSLog(@"%f", resViewHeight);
         resView.frame = CGRectMake(0, 0,maxWidth, resViewHeight - 5 );
-        
-        
+      
+ 
         self.cachedImageView = resView;
         
     }
@@ -290,6 +299,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        NSLog(@"initWithCoder Multi");
         _image = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(image))];
     }
     return self;
@@ -305,7 +315,7 @@
 
 - (instancetype)copyWithZone:(NSZone *)zone
 {
-    JSQMultiMediaItem *copy = [[JSQMultiMediaItem allocWithZone:zone] initWithImage:self.image];
+    JSQMultiMediaItem *copy = [[JSQMultiMediaItem allocWithZone:zone] initWithData:self.data];
     copy.appliesMediaViewMaskAsOutgoing = self.appliesMediaViewMaskAsOutgoing;
     return copy;
 }

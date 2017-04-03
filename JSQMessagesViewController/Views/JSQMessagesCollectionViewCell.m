@@ -146,9 +146,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
     
     
     
-    
-    
-}
+   }
 
 - (void)configureAccessoryButton
 {

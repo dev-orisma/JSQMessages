@@ -434,7 +434,6 @@
     if (self.audioData && ![self.audioData isEqualToData:audioItem.audioData]) {
         return NO;
     }
-    
     return YES;
 }
 
