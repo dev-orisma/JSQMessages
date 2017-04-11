@@ -178,9 +178,7 @@
     AVAudioSessionCategoryOptions options = [AVAudioSession sharedInstance].categoryOptions;
     
     if (category != self.audioViewAttributes.audioCategory || options != self.audioViewAttributes.audioCategoryOptions) {
-        NSError *error = nil;
-        
-        NSLog(@"%@", category);
+        NSError *error = nil; 
         
         [[AVAudioSession sharedInstance] setCategory:self.audioViewAttributes.audioCategory
                                          withOptions:self.audioViewAttributes.audioCategoryOptions

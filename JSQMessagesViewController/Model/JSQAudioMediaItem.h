@@ -61,6 +61,8 @@ didChangeAudioCategory:(NSString *)category
  */
 @property (nonatomic, strong, nullable) NSData *audioData;
 
+@property (nonatomic, strong, readonly) AVAudioPlayer *audioPlayer;
+
 /**
  *  Initializes and returns a audio media item having the given audioData.
  *
