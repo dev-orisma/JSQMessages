@@ -160,7 +160,7 @@
         
                 NSString *text = [self.data objectAtIndex:i];
                 
-                UIFont *customFont = [UIFont fontWithName:@"DBHelvethaicaMonX" size:24.0f];
+                UIFont *customFont = [UIFont fontWithName:@"ThaiSansNeue-Regular" size:24.0f];
                 CGSize labelSize = [text sizeWithFont:customFont constrainedToSize:CGSizeMake(250, 155) lineBreakMode:NSLineBreakByTruncatingTail];
                 
                 NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text];

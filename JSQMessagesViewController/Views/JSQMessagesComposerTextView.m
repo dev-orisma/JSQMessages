@@ -47,14 +47,14 @@
 
 //    self.scrollIndicatorInsets = UIEdgeInsetsMake(cornerRadius, 0.0f, cornerRadius, 0.0f);
 
-    self.textContainerInset = UIEdgeInsetsMake(17.0f, 2.0f, 15.0f, 2.0f);
+    self.textContainerInset = UIEdgeInsetsMake(11.0f, 2.0f, 10.0f, 2.0f);
 //    self.contentInset = UIEdgeInsetsMake(1.0f, 0.0f, 1.0f, 0.0f);
 
     self.scrollEnabled = YES;
     self.scrollsToTop = NO;
     self.userInteractionEnabled = YES;
 
-    self.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.font = [UIFont fontWithName:@"ThaiSansNeue-Regular" size:22.0f]; //[UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.textColor = [UIColor blackColor];
     self.textAlignment = NSTextAlignmentNatural;
 
@@ -68,7 +68,7 @@
 
     _placeHolder = @"พิมพ์ข้อความ";
     _placeHolderTextColor = [UIColor lightGrayColor];
-    _placeHolderInsets = UIEdgeInsetsMake(17.0, 7.0, 15.0, 7.0);
+    _placeHolderInsets = UIEdgeInsetsMake(11.0, 7.0, 10.0f, 7.0);
 
     [self associateConstraints];
 
