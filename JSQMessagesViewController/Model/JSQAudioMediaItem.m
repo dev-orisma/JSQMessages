@@ -179,6 +179,9 @@
     
     if (category != self.audioViewAttributes.audioCategory || options != self.audioViewAttributes.audioCategoryOptions) {
         NSError *error = nil;
+        
+        NSLog(@"%@", category);
+        
         [[AVAudioSession sharedInstance] setCategory:self.audioViewAttributes.audioCategory
                                          withOptions:self.audioViewAttributes.audioCategoryOptions
                                                error:&error];
@@ -276,6 +279,8 @@
         self.playButton = [[UIButton alloc] initWithFrame:buttonFrame];
         [self.playButton setImage:self.audioViewAttributes.playButtonImage forState:UIControlStateNormal];
         [self.playButton setImage:self.audioViewAttributes.pauseButtonImage forState:UIControlStateSelected];
+        
+        
         [self.playButton addTarget:self action:@selector(onPlayButton:) forControlEvents:UIControlEventTouchUpInside];
         [playView addSubview:self.playButton];
         
