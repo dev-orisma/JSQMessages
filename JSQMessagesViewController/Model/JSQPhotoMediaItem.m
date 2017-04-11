@@ -108,7 +108,15 @@
             
             imageView.frame = CGRectMake(0.0f, 0.0f, size.width, size.height);
             imageView.contentMode = UIViewContentModeScaleAspectFill;
- 
+        
+        
+//        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(jsq_handleTapOpenFullImg:)];
+//        [singleTap setDelegate:self];
+//        singleTap.numberOfTapsRequired = 1;
+//        [imageView setUserInteractionEnabled:YES];
+//        [imageView addGestureRecognizer:singleTap];
+
+        
             [JSQMessagesMediaViewBubbleImageMasker applyBubbleImageMaskToMediaView:imageView isOutgoing:self.appliesMediaViewMaskAsOutgoing];
             self.cachedImageView = imageView;
   
@@ -117,8 +125,12 @@
     return self.cachedImageView;
 }
 
-
-
+//
+//- (void)jsq_handleTapOpenFullImg:(UITapGestureRecognizer*)sender {
+//    UIImageView *view = sender.view;
+//    NSString *file_name = [view.image accessibilityIdentifier] ;
+//    NSLog(@"By tag, you can find out where you had tapped. %@", file_name);
+//}
 
 - (UIView *)mediaPreview
 {
@@ -140,6 +152,8 @@
     
     return self.cachedImagePreview;
 }
+
+
 
 
 - (NSUInteger)mediaHash

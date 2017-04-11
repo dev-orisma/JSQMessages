@@ -47,7 +47,7 @@
 
 //    self.scrollIndicatorInsets = UIEdgeInsetsMake(cornerRadius, 0.0f, cornerRadius, 0.0f);
 
-//    self.textContainerInset = UIEdgeInsetsMake(4.0f, 2.0f, 4.0f, 2.0f);
+    self.textContainerInset = UIEdgeInsetsMake(17.0f, 2.0f, 15.0f, 2.0f);
 //    self.contentInset = UIEdgeInsetsMake(1.0f, 0.0f, 1.0f, 0.0f);
 
     self.scrollEnabled = YES;
@@ -66,9 +66,9 @@
 
     self.text = nil;
 
-    _placeHolder = nil;
+    _placeHolder = @"พิมพ์ข้อความ";
     _placeHolderTextColor = [UIColor lightGrayColor];
-    _placeHolderInsets = UIEdgeInsetsMake(5.0, 7.0, 5.0, 7.0);
+    _placeHolderInsets = UIEdgeInsetsMake(17.0, 7.0, 15.0, 7.0);
 
     [self associateConstraints];
 
