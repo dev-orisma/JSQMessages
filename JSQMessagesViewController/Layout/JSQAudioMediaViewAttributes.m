@@ -71,8 +71,10 @@
                                tintColor:tintColor
                            controlInsets:UIEdgeInsetsMake(6, 6, 6, 18)
                           controlPadding:6
-                           audioCategory:@"AVAudioSessionCategoryPlayback"
+//                           audioCategory:@"AVAudioSessionCategoryPlayback"
+            audioCategory:@"AVAudioSessionCategorySoloAmbient"
                     audioCategoryOptions:options];
+ 
 }
 
 - (void)setPlayButtonImage:(UIImage *)playButtonImage

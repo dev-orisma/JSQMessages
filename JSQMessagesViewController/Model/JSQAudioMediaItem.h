@@ -35,6 +35,9 @@ didChangeAudioCategory:(NSString *)category
                options:(AVAudioSessionCategoryOptions)options
                  error:(nullable NSError *)error;
 
+- (void)audioMediaItem:(JSQAudioMediaItem *)audioMediaItem
+willPlayAudio:(AVAudioPlayer *)audioPlayer;
+
 @end
 
 
@@ -62,6 +65,12 @@ didChangeAudioCategory:(NSString *)category
 @property (nonatomic, strong, nullable) NSData *audioData;
 
 @property (nonatomic, strong, readonly) AVAudioPlayer *audioPlayer;
+
+@property (strong, nonatomic, readonly) UIButton *playButton;
+
+@property (strong, nonatomic, readonly) UIProgressView *progressView;
+
+@property (strong, nonatomic, readonly) UILabel *progressLabel;
 
 /**
  *  Initializes and returns a audio media item having the given audioData.

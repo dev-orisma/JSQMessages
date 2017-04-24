@@ -53,7 +53,7 @@
     if (self) {
         _cachedMediaView = nil;
         _cachedMediaPreview = nil;
-        
+       
         _audioData = [audioData copy];
         _audioViewAttributes = audioViewAttributes;
     }
@@ -174,12 +174,14 @@
 
 - (void)onPlayButton:(UIButton *)sender
 {
+    
+    
     NSString *category = [AVAudioSession sharedInstance].category;
     AVAudioSessionCategoryOptions options = [AVAudioSession sharedInstance].categoryOptions;
     
     if (category != self.audioViewAttributes.audioCategory || options != self.audioViewAttributes.audioCategoryOptions) {
         NSError *error = nil; 
-        
+    
         [[AVAudioSession sharedInstance] setCategory:self.audioViewAttributes.audioCategory
                                          withOptions:self.audioViewAttributes.audioCategoryOptions
                                                error:&error];
@@ -188,13 +190,19 @@
         }
     }
     
+   
+    if (self.delegate) {
+        [self.delegate audioMediaItem:self willPlayAudio:self.audioPlayer ];
+    }
+
+    
     if (self.audioPlayer.playing) {
         self.playButton.selected = NO;
         [self stopProgressTimer];
         [self.audioPlayer stop];
     }
     else {
-        // fade the button from play to pause
+                // fade the button from play to pause
         [UIView transitionWithView:self.playButton
                           duration:.2
                            options:UIViewAnimationOptionTransitionCrossDissolve
