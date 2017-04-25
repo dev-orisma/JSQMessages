@@ -185,8 +185,15 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
     
     self.inputBar.layer.borderWidth = 0.5f;
     self.inputBar.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    unsigned rgbValue = 0;
+    NSScanner *scanner1 = [NSScanner scannerWithString:@"#DDDDDD"];
+    [scanner1 setScanLocation:1]; // bypass '#' character
+    [scanner1 scanHexInt:&rgbValue];
+    UIColor *color1 = [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+
+    
     self.keyTexBox.layer.borderWidth = 0.5f;
-    self.keyTexBox.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.keyTexBox.layer.borderColor = color1.CGColor;
     
     self.inputBarText.layer.borderColor = [UIColor clearColor].CGColor;
     self.performTextViewHeight = self.inputBarText.bounds.size.height;
