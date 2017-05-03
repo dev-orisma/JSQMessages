@@ -40,23 +40,23 @@
                     <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQU-Nf-Gr5">
-                            <rect key="frame" x="55" y="13" width="17" height="25"/>
+                            <rect key="frame" x="56" y="13" width="15" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="25" id="Dgq-Ow-Vzc"/>
-                                <constraint firstAttribute="width" constant="17" id="s7w-1o-jfJ"/>
+                                <constraint firstAttribute="width" constant="15" id="s7w-1o-jfJ"/>
                             </constraints>
-                            <state key="normal" backgroundImage="chat-bt-mic.png">
+                            <state key="normal" backgroundImage="chat_icon_mic">
                                 <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="titleShadowColor" red="0.94117647059999998" green="0.83529411760000005" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u99-da-1JK">
-                            <rect key="frame" x="11" y="13" width="33" height="25"/>
+                            <rect key="frame" x="11" y="13" width="32" height="25"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="33" id="Uh3-f8-32x"/>
+                                <constraint firstAttribute="width" constant="32" id="Uh3-f8-32x"/>
                                 <constraint firstAttribute="height" constant="25" id="p1M-yp-mQW"/>
                             </constraints>
-                            <state key="normal" backgroundImage="chat-bt-pic.png">
+                            <state key="normal" backgroundImage="chat_icon_img">
                                 <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="titleShadowColor" red="0.94117647059999998" green="0.83529411760000005" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
@@ -111,7 +111,7 @@
                         <constraint firstAttribute="trailing" secondItem="NVI-4n-k9R" secondAttribute="trailing" constant="50" id="2bQ-n3-xSU"/>
                         <constraint firstItem="uSE-gi-g26" firstAttribute="leading" secondItem="Ah3-0i-FMc" secondAttribute="trailing" constant="3" id="2yc-qX-QBY"/>
                         <constraint firstAttribute="bottom" secondItem="UQU-Nf-Gr5" secondAttribute="bottom" constant="12" id="4jG-1x-FlV"/>
-                        <constraint firstItem="UQU-Nf-Gr5" firstAttribute="leading" secondItem="u99-da-1JK" secondAttribute="trailing" constant="11" id="7Rw-ol-abJ"/>
+                        <constraint firstItem="UQU-Nf-Gr5" firstAttribute="leading" secondItem="u99-da-1JK" secondAttribute="trailing" constant="13" id="7Rw-ol-abJ"/>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="250" id="DJT-aH-rsP"/>
                         <constraint firstItem="NVI-4n-k9R" firstAttribute="top" secondItem="zSe-kp-Prg" secondAttribute="top" id="EDN-03-dzZ"/>
                         <constraint firstItem="u99-da-1JK" firstAttribute="bottom" secondItem="zSe-kp-Prg" secondAttribute="bottom" constant="-12" id="GMY-ms-moe"/>
@@ -119,7 +119,7 @@
                         <constraint firstItem="u99-da-1JK" firstAttribute="leading" secondItem="zSe-kp-Prg" secondAttribute="leading" constant="11" id="Z17-Q9-Wd9"/>
                         <constraint firstAttribute="trailing" secondItem="uSE-gi-g26" secondAttribute="trailing" constant="1" id="ZBb-cV-Avk"/>
                         <constraint firstAttribute="bottom" secondItem="NVI-4n-k9R" secondAttribute="bottom" id="f1a-a5-yNX"/>
-                        <constraint firstItem="NVI-4n-k9R" firstAttribute="leading" secondItem="UQU-Nf-Gr5" secondAttribute="trailing" constant="13" id="fhp-1Z-j8d"/>
+                        <constraint firstItem="NVI-4n-k9R" firstAttribute="leading" secondItem="UQU-Nf-Gr5" secondAttribute="trailing" constant="14" id="fhp-1Z-j8d"/>
                         <constraint firstItem="NVI-4n-k9R" firstAttribute="height" secondItem="zSe-kp-Prg" secondAttribute="height" id="ggo-kA-Y6o"/>
                         <constraint firstAttribute="bottom" secondItem="uSE-gi-g26" secondAttribute="bottom" constant="10" id="yeO-ZN-9iL"/>
                     </constraints>
@@ -141,8 +141,8 @@
         </view>
     </objects>
     <resources>
-        <image name="chat-bt-mic.png" width="26" height="39"/>
-        <image name="chat-bt-pic.png" width="45" height="36"/>
+        <image name="chat_icon_img" width="45" height="36"/>
+        <image name="chat_icon_mic" width="26" height="39"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
