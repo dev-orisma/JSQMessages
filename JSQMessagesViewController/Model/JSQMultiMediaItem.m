@@ -27,7 +27,7 @@
 
 @interface JSQMultiMediaItem ()
 
-@property (strong, nonatomic) UIImageView *cachedImageView;
+@property (strong, nonatomic) UIView *cachedMultiView;
 @property (strong, nonatomic) UIImageView *cachedImagePreview;
 
 @end
@@ -42,7 +42,7 @@
     self = [super init];
     if (self) {
         image = [image copy];
-        _cachedImageView = nil;
+        _cachedMultiView = nil;
     }
     return self;
 }
@@ -54,31 +54,36 @@
     self = [super init];
     if (self) {
         _data = [data copy];
-        _cachedImageView = nil;
+        _cachedMultiView = nil;
     }
-    
-    _cachedImageView = nil;
+    NSLog(@"%@",@"initWithData");
+    _cachedMultiView = nil;
     return self;
 }
 
 - (void)clearCachedMediaViews
 {
     [super clearCachedMediaViews];
-    _cachedImageView = nil;
+//    _cachedMultiView = nil;
+    
+    NSLog(@"%@",@"clearCachedMediaViews");
+    
 }
 
 #pragma mark - Setters
 
 - (void)setImage:(UIImage *)image
 {
+    NSLog(@"%@",@"setImage");
     _image = [image copy];
-    _cachedImageView = nil;
+    _cachedMultiView = nil;
 }
 
 - (void)setData:(NSMutableArray *)data
 {
+    NSLog(@"%@",@"setData");
     _data = [data copy];
-    _cachedImageView = nil;
+    _cachedMultiView = nil;
 }
 - (void)setTextView:(UITextView *)textView
 {
@@ -96,8 +101,10 @@
 
 - (void)setAppliesMediaViewMaskAsOutgoing:(BOOL)appliesMediaViewMaskAsOutgoing
 {
+    
+    NSLog(@"%@",@"setAppliesMediaViewMaskAsOutgoing");
     [super setAppliesMediaViewMaskAsOutgoing:appliesMediaViewMaskAsOutgoing];
-    _cachedImageView = nil;
+    _cachedMultiView = nil;
 }
 
 #pragma mark - JSQMessageMediaData protocol
@@ -107,11 +114,12 @@
 {
     if (self.data == nil) {
         return nil;
-    } 
-    if (self.cachedImageView == nil) {
+    }
+    NSInteger maxWidth = 250;
+    if (self.cachedMultiView == nil) {
         
         NSInteger viewcount= self.data.count;
-        NSInteger maxWidth = 250;
+        
         CGFloat item_y = 0;
         CGFloat resViewHeight = 0;
         
@@ -120,7 +128,7 @@
         resView.backgroundColor = [UIColor clearColor];
         
         
-        for (int i = 0; i <viewcount; i++)
+        for (int i = 0; i < viewcount; i++)
         {
             if([[self.data objectAtIndex:i] isKindOfClass:[JSQPhotoMediaItem class]]){
                 JSQPhotoMediaItem *jsqphoto = [self.data objectAtIndex:i];
@@ -156,7 +164,7 @@
                 item_y = item_y + imageView.frame.size.height + 5;
                 [resView addSubview:imageView];
             }else if([[self.data objectAtIndex:i] isKindOfClass:[NSString class]]){
-                NSLog(@"%@", [self.data objectAtIndex:i]);
+                
         
                 NSString *text = [self.data objectAtIndex:i];
                 
@@ -179,7 +187,7 @@
                 
                 UILabel *fromLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, stringRect.size.width, stringRect.size.height + 10)];
                 fromLabel.text = text;
-                 fromLabel.attributedText = attributedString;
+                fromLabel.attributedText = attributedString;
                 fromLabel.textColor = [UIColor blackColor];
                 fromLabel.lineBreakMode = NSLineBreakByTruncatingTail;
                 fromLabel.font = customFont;
@@ -241,19 +249,28 @@
                 item_y = item_y + myview.frame.size.height + 5;
                  [resView addSubview:myview];
             }
-            
-            
-            // do stuff
         }
-        NSLog(@"%f", resViewHeight);
-        resView.frame = CGRectMake(0, 0,maxWidth, resViewHeight - 5 );
-      
- 
-        self.cachedImageView = resView;
         
+        resView.frame = CGRectMake(0, 0,maxWidth, resViewHeight - 5 );
+        NSLog(@"%@",@"create cachedMultiView");
+        self.cachedMultiView = resView;
+//        return resView;
+        
+    }else{
+        CGFloat resViewHeight = 0;
+        for (int i = 0; i < self.cachedMultiView.subviews.count; i++)
+        {
+            resViewHeight = resViewHeight + self.cachedMultiView.subviews[i].frame.size.height + 5;
+        }
+        
+        self.cachedMultiView.frame = CGRectMake(0, 0,maxWidth, resViewHeight); //.size.height = resViewHeight;
+         NSLog(@"%@ %f",@"use cachedMultiView",self.cachedMultiView.frame.size.height);
+        
+        
+//         NSLog(@"%@",@"use cachedMultiView");
     }
     
-    return self.cachedImageView;
+    return self.cachedMultiView;
 }
 
 - (UIColor *)jsq_messageBubbleHexColor:(NSString *)hexString {
