@@ -77,6 +77,7 @@ static NSMutableSet *jsqMessagesCollectionViewCellActions = nil;
 
 + (void)initialize
 {
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         jsqMessagesCollectionViewCellActions = [NSMutableSet new];
