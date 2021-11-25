@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  and the date that the message was sent. If initialized as a media message it also contains a media attachment,
  *  otherwise it contains the message text.
  */
-@interface JSQMessage : NSObject <JSQMessageData, NSCoding, NSCopying>
+@interface JSQMessage : NSObject <JSQMessageData, NSSecureCoding, NSCopying>
 
 /**
  *  Returns the string identifier that uniquely identifies the user who sent the message.

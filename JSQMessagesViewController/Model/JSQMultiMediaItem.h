@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  to a `JSQMediaMessage` object during its initialization to construct a valid media message object.
  *  You may wish to subclass `JSQMultiMediaItem` to provide additional functionality or behavior.
  */
-@interface JSQMultiMediaItem : JSQMediaItem <JSQMessageMediaData, NSCoding, NSCopying>
+@interface JSQMultiMediaItem : JSQMediaItem <JSQMessageMediaData, NSSecureCoding, NSCopying>
 
 /**
  *  The image for the photo media item. The default value is `nil`.

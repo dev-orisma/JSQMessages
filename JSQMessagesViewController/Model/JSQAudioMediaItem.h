@@ -47,7 +47,7 @@ willPlayAudio:(AVAudioPlayer *)audioPlayer;
  *  to a `JSQMediaMessage` object during its initialization to construct a valid media message object.
  *  You may wish to subclass `JSQAudioMediaItem` to provide additional functionality or behavior.
  */
-@interface JSQAudioMediaItem : JSQMediaItem <JSQMessageMediaData, AVAudioPlayerDelegate, NSCoding, NSCopying>
+@interface JSQAudioMediaItem : JSQMediaItem <JSQMessageMediaData, AVAudioPlayerDelegate, NSSecureCoding, NSCopying>
 
 /**
  *  The delegate object for audio event notifications.

@@ -202,7 +202,7 @@
     [aCoder encodeBool:self.isMediaMessage forKey:NSStringFromSelector(@selector(isMediaMessage))];
     [aCoder encodeObject:self.text forKey:NSStringFromSelector(@selector(text))];
     
-    if ([self.media conformsToProtocol:@protocol(NSCoding)]) {
+    if ([self.media conformsToProtocol:@protocol(NSSecureCoding)]) {
         [aCoder encodeObject:self.media forKey:NSStringFromSelector(@selector(media))];
     }
 }

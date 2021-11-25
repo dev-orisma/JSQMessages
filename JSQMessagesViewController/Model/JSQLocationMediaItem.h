@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  to a `JSQMediaMessage` object during its initialization to construct a valid media message object.
  *  You may wish to subclass `JSQLocationMediaItem` to provide additional functionality or behavior.
  */
-@interface JSQLocationMediaItem : JSQMediaItem <JSQMessageMediaData, MKAnnotation, NSCoding, NSCopying>
+@interface JSQLocationMediaItem : JSQMediaItem <JSQMessageMediaData, MKAnnotation, NSSecureCoding, NSCopying>
 
 /**
  *  The location for the media item. The default value is `nil`.

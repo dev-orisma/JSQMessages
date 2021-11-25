@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  @see JSQPhotoMediaItem.
  *  @see JSQVideoMediaItem.
  */
-@interface JSQMediaItem : NSObject <JSQMessageMediaData, NSCoding, NSCopying>
+@interface JSQMediaItem : NSObject <JSQMessageMediaData, NSSecureCoding, NSCopying>
 
 /**
  *  A boolean value indicating whether this media item should apply

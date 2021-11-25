@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  to a `JSQMediaMessage` object during its initialization to construct a valid media message object.
  *  You may wish to subclass `JSQVideoMediaItem` to provide additional functionality or behavior.
  */
-@interface JSQVideoMediaItem : JSQMediaItem <JSQMessageMediaData, NSCoding, NSCopying>
+@interface JSQVideoMediaItem : JSQMediaItem <JSQMessageMediaData, NSSecureCoding, NSCopying>
 
 /**
  *  The URL that identifies a video resource.
