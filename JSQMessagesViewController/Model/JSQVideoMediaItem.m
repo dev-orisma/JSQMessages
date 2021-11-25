@@ -231,7 +231,7 @@
             [self class], self.fileURL, @(self.isReadyToPlay), @(self.appliesMediaViewMaskAsOutgoing), self.thumbnailImage];
 }
 
-#pragma mark - NSCoding
+#pragma mark - NSSecureCoding
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {

@@ -16,7 +16,7 @@
 
 
 // Fake media object for testing
-@interface FakeMedia : NSObject <JSQMessageMediaData, NSCoding>
+@interface FakeMedia : NSObject <JSQMessageMediaData, NSSecureCoding>
 @end
 
 @implementation FakeMedia

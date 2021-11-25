@@ -178,7 +178,7 @@
     return [self.media mediaView] ?: [self.media mediaPlaceholderView];
 }
 
-#pragma mark - NSCoding
+#pragma mark - NSSecureCoding
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {

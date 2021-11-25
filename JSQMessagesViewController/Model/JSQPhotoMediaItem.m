@@ -184,7 +184,7 @@
             [self class], self.image, @(self.appliesMediaViewMaskAsOutgoing)];
 }
 
-#pragma mark - NSCoding
+#pragma mark - NSSecureCoding
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
