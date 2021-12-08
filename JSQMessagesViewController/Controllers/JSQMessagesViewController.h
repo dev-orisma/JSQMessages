@@ -61,6 +61,8 @@ UITextViewDelegate>
 
 @property (weak, nonatomic, readonly, nullable)  UIButton* micButton;
 
+@property (weak, nonatomic, readonly, nullable)  UIButton* emojiButton;
+
 @property (weak, nonatomic, readonly, nullable)  UIButton* sendButton;
 
 /**

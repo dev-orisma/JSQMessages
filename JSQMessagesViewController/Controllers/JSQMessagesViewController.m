@@ -132,6 +132,7 @@ static void JSQInstallWorkaroundForSheetPresentationIssue26295020(void) {
 
 @property (weak, nonatomic) IBOutlet UIView *keyTexBox;
 @property (weak, nonatomic) IBOutlet UIButton *picButton;
+@property (weak, nonatomic) IBOutlet UIButton *emojiButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *micButton;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
