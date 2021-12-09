@@ -10,7 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="JSQMessagesViewController">
             <connections>
                 <outlet property="collectionView" destination="l9u-2b-4LK" id="bLP-6g-CkO"/>
-                <outlet property="emojiButton" destination="hE6-tm-tVz" id="XKE-Wv-Yby"/>
+                <outlet property="emojiButton" destination="YLi-9P-gSI" id="F8n-hY-kX5"/>
                 <outlet property="inputBar" destination="zSe-kp-Prg" id="tYW-f9-LFi"/>
                 <outlet property="inputBarBottomConstraint" destination="Z12-rz-0sm" id="eo2-63-aah"/>
                 <outlet property="inputBarHeightConstraint" destination="DJT-aH-rsP" id="4Pr-jL-Ut9"/>
@@ -39,7 +39,7 @@
                     <rect key="frame" x="0.0" y="617" width="375" height="50"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UQU-Nf-Gr5">
-                            <rect key="frame" x="53" y="13" width="15" height="25"/>
+                            <rect key="frame" x="51" y="13" width="15" height="25"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="25" id="Dgq-Ow-Vzc"/>
                                 <constraint firstAttribute="width" constant="15" id="s7w-1o-jfJ"/>
@@ -61,7 +61,7 @@
                             </state>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVI-4n-k9R">
-                            <rect key="frame" x="114" y="0.0" width="211" height="50"/>
+                            <rect key="frame" x="107" y="0.0" width="218" height="50"/>
                             <subviews>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cEp-vy-YTH">
                                     <rect key="frame" x="0.0" y="0.0" width="240" height="0.0"/>
@@ -71,7 +71,7 @@
                                     </constraints>
                                 </scrollView>
                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Ah3-0i-FMc" customClass="JSQMessagesComposerTextView">
-                                    <rect key="frame" x="0.0" y="0.0" width="211" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="218" height="50"/>
                                     <color key="backgroundColor" red="0.84705882349999995" green="0.13725490200000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="iKB-ca-ZuC"/>
@@ -87,7 +87,7 @@
                                 <constraint firstItem="Ah3-0i-FMc" firstAttribute="leading" secondItem="NVI-4n-k9R" secondAttribute="leading" id="6Rw-kq-dW8"/>
                                 <constraint firstItem="Ah3-0i-FMc" firstAttribute="top" secondItem="cEp-vy-YTH" secondAttribute="bottom" id="9FJ-hi-FK8"/>
                                 <constraint firstItem="cEp-vy-YTH" firstAttribute="top" secondItem="NVI-4n-k9R" secondAttribute="top" id="HbQ-eX-Ghz"/>
-                                <constraint firstAttribute="trailing" secondItem="cEp-vy-YTH" secondAttribute="trailing" id="K0Q-hr-s1r"/>
+                                <constraint firstAttribute="trailing" secondItem="cEp-vy-YTH" secondAttribute="trailing" constant="-22" id="K0Q-hr-s1r"/>
                                 <constraint firstAttribute="bottom" secondItem="Ah3-0i-FMc" secondAttribute="bottom" id="K5J-OJ-U87"/>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="K9M-De-l5Y"/>
                                 <constraint firstItem="cEp-vy-YTH" firstAttribute="height" relation="lessThanOrEqual" secondItem="NVI-4n-k9R" secondAttribute="height" constant="140" id="OcV-AX-igj"/>
@@ -96,7 +96,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSE-gi-g26">
-                            <rect key="frame" x="328" y="10" width="46" height="30"/>
+                            <rect key="frame" x="330" y="10" width="44" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="ybw-wz-Myn"/>
                             </constraints>
@@ -104,10 +104,11 @@
                                 <color key="titleColor" red="0.72941176470000002" green="0.59999999999999998" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE6-tm-tVz">
-                            <rect key="frame" x="78" y="13" width="25" height="25"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YLi-9P-gSI">
+                            <rect key="frame" x="73" y="13" width="25" height="25"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="25" id="3p5-lt-WC6"/>
+                                <constraint firstAttribute="width" constant="25" id="CdT-VY-0Gu"/>
+                                <constraint firstAttribute="height" constant="25" id="Izj-In-6bu"/>
                             </constraints>
                             <state key="normal" backgroundImage="emoji">
                                 <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -118,21 +119,21 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="NVI-4n-k9R" secondAttribute="trailing" constant="50" id="2bQ-n3-xSU"/>
-                        <constraint firstItem="uSE-gi-g26" firstAttribute="leading" secondItem="Ah3-0i-FMc" secondAttribute="trailing" constant="3" id="2yc-qX-QBY"/>
+                        <constraint firstItem="uSE-gi-g26" firstAttribute="leading" secondItem="Ah3-0i-FMc" secondAttribute="trailing" constant="5" id="2yc-qX-QBY"/>
+                        <constraint firstAttribute="bottom" secondItem="YLi-9P-gSI" secondAttribute="bottom" constant="12" id="3Fx-qw-cgV"/>
                         <constraint firstAttribute="bottom" secondItem="UQU-Nf-Gr5" secondAttribute="bottom" constant="12" id="4jG-1x-FlV"/>
-                        <constraint firstItem="UQU-Nf-Gr5" firstAttribute="leading" secondItem="u99-da-1JK" secondAttribute="trailing" constant="10" id="7Rw-ol-abJ"/>
-                        <constraint firstItem="hE6-tm-tVz" firstAttribute="top" secondItem="UQU-Nf-Gr5" secondAttribute="top" id="Asn-vt-7ti"/>
+                        <constraint firstItem="UQU-Nf-Gr5" firstAttribute="leading" secondItem="u99-da-1JK" secondAttribute="trailing" constant="8" id="7Rw-ol-abJ"/>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="250" id="DJT-aH-rsP"/>
                         <constraint firstItem="NVI-4n-k9R" firstAttribute="top" secondItem="zSe-kp-Prg" secondAttribute="top" id="EDN-03-dzZ"/>
                         <constraint firstItem="u99-da-1JK" firstAttribute="bottom" secondItem="zSe-kp-Prg" secondAttribute="bottom" constant="-12" id="GMY-ms-moe"/>
+                        <constraint firstItem="YLi-9P-gSI" firstAttribute="leading" secondItem="UQU-Nf-Gr5" secondAttribute="trailing" constant="7" id="Kx7-oU-hT5"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Ovl-Ze-Owj"/>
-                        <constraint firstItem="hE6-tm-tVz" firstAttribute="bottom" secondItem="UQU-Nf-Gr5" secondAttribute="bottom" id="RIy-fM-dMQ"/>
+                        <constraint firstItem="NVI-4n-k9R" firstAttribute="leading" secondItem="YLi-9P-gSI" secondAttribute="trailing" constant="9" id="TBf-B2-fQG"/>
                         <constraint firstItem="u99-da-1JK" firstAttribute="leading" secondItem="zSe-kp-Prg" secondAttribute="leading" constant="11" id="Z17-Q9-Wd9"/>
                         <constraint firstAttribute="trailing" secondItem="uSE-gi-g26" secondAttribute="trailing" constant="1" id="ZBb-cV-Avk"/>
+                        <constraint firstItem="YLi-9P-gSI" firstAttribute="leading" secondItem="UQU-Nf-Gr5" secondAttribute="trailing" constant="7" id="aiq-0E-UwF"/>
                         <constraint firstAttribute="bottom" secondItem="NVI-4n-k9R" secondAttribute="bottom" id="f1a-a5-yNX"/>
                         <constraint firstItem="NVI-4n-k9R" firstAttribute="height" secondItem="zSe-kp-Prg" secondAttribute="height" id="ggo-kA-Y6o"/>
-                        <constraint firstItem="hE6-tm-tVz" firstAttribute="leading" secondItem="UQU-Nf-Gr5" secondAttribute="trailing" constant="10" id="j1G-hW-RBQ"/>
-                        <constraint firstItem="NVI-4n-k9R" firstAttribute="leading" secondItem="hE6-tm-tVz" secondAttribute="trailing" constant="11" id="l5B-Km-gzK"/>
                         <constraint firstAttribute="bottom" secondItem="uSE-gi-g26" secondAttribute="bottom" constant="10" id="yeO-ZN-9iL"/>
                     </constraints>
                 </view>
